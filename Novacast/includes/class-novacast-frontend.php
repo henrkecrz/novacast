@@ -56,15 +56,22 @@ class Novacast_Frontend {
         <div class="novacast-player-list" data-novacast-player-list>
             <?php foreach ( $episodes as $episode ) : ?>
                 <?php
-                $audio_url = get_post_meta( $episode->ID, Novacast_Admin::META_AUDIO_URL, true );
-                $duration  = get_post_meta( $episode->ID, Novacast_Admin::META_DURATION, true );
-                $cover     = get_the_post_thumbnail_url( $episode->ID, 'medium' );
+                $source                 = get_post_meta( $episode->ID, Novacast_Admin::META_SOURCE, true );
+                $source                 = $source ? $source : 'audio';
+                $audio_url              = get_post_meta( $episode->ID, Novacast_Admin::META_AUDIO_URL, true );
+                $youtube_url            = get_post_meta( $episode->ID, Novacast_Admin::META_YOUTUBE_URL, true );
+                $spotify_url            = get_post_meta( $episode->ID, Novacast_Admin::META_SPOTIFY_URL, true );
+                $external_thumbnail_url = get_post_meta( $episode->ID, Novacast_Admin::META_EXTERNAL_THUMBNAIL_URL, true );
+                $duration               = get_post_meta( $episode->ID, Novacast_Admin::META_DURATION, true );
+                $cover                  = get_the_post_thumbnail_url( $episode->ID, 'medium' );
+                $cover                  = $cover ? $cover : $external_thumbnail_url;
+                $player_markup          = self::render_episode_player( $source, $audio_url, $youtube_url, $spotify_url );
 
-                if ( empty( $audio_url ) ) {
+                if ( empty( $player_markup ) ) {
                     continue;
                 }
                 ?>
-                <article class="novacast-player-card">
+                <article class="novacast-player-card novacast-source-<?php echo esc_attr( $source ); ?>">
                     <?php if ( $cover ) : ?>
                         <img class="novacast-player-cover" src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( get_the_title( $episode ) ); ?>">
                     <?php endif; ?>
@@ -80,16 +87,81 @@ class Novacast_Frontend {
                             <?php echo wp_kses_post( wpautop( get_the_excerpt( $episode ) ?: wp_trim_words( wp_strip_all_tags( $episode->post_content ), 28 ) ) ); ?>
                         </div>
 
-                        <audio class="novacast-audio" controls preload="metadata">
-                            <source src="<?php echo esc_url( $audio_url ); ?>">
-                            <?php esc_html_e( 'Seu navegador não suporta reprodução de áudio.', 'novacast' ); ?>
-                        </audio>
+                        <?php echo $player_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </div>
                 </article>
             <?php endforeach; ?>
         </div>
         <?php
         return ob_get_clean();
+    }
+
+    private static function render_episode_player( $source, $audio_url, $youtube_url, $spotify_url ) {
+        if ( 'youtube' === $source ) {
+            $youtube_id = self::extract_youtube_id( $youtube_url );
+
+            if ( empty( $youtube_id ) ) {
+                return '';
+            }
+
+            return sprintf(
+                '<div class="novacast-embed novacast-youtube"><iframe src="%s" title="%s" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>',
+                esc_url( 'https://www.youtube.com/embed/' . rawurlencode( $youtube_id ) ),
+                esc_attr__( 'Player do YouTube', 'novacast' )
+            );
+        }
+
+        if ( 'spotify' === $source ) {
+            $spotify_id = self::extract_spotify_episode_id( $spotify_url );
+
+            if ( empty( $spotify_id ) ) {
+                return '';
+            }
+
+            return sprintf(
+                '<div class="novacast-embed novacast-spotify"><iframe src="%s" title="%s" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>',
+                esc_url( 'https://open.spotify.com/embed/episode/' . rawurlencode( $spotify_id ) ),
+                esc_attr__( 'Player do Spotify', 'novacast' )
+            );
+        }
+
+        if ( empty( $audio_url ) ) {
+            return '';
+        }
+
+        return sprintf(
+            '<audio class="novacast-audio" controls preload="metadata"><source src="%s">%s</audio>',
+            esc_url( $audio_url ),
+            esc_html__( 'Seu navegador não suporta reprodução de áudio.', 'novacast' )
+        );
+    }
+
+    private static function extract_youtube_id( $url ) {
+        $url = trim( (string) $url );
+
+        if ( preg_match( '#(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/embed/)([a-zA-Z0-9_-]{6,})#', $url, $matches ) ) {
+            return $matches[1];
+        }
+
+        if ( preg_match( '#^[a-zA-Z0-9_-]{6,}$#', $url ) ) {
+            return $url;
+        }
+
+        return '';
+    }
+
+    private static function extract_spotify_episode_id( $url ) {
+        $url = trim( (string) $url );
+
+        if ( preg_match( '#open\.spotify\.com/(?:embed/)?episode/([a-zA-Z0-9]+)#', $url, $matches ) ) {
+            return $matches[1];
+        }
+
+        if ( preg_match( '#^[a-zA-Z0-9]+$#', $url ) ) {
+            return $url;
+        }
+
+        return '';
     }
 
     private static function get_episodes( $episode_id, $limit ) {
