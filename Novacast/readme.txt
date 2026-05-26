@@ -4,7 +4,7 @@ Tags: podcast, audio, player, shortcode, youtube, spotify
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,12 @@ Para sincronizar Spotify, informe Client ID, Client Secret e o ID ou URL de um s
 Os episódios importados usam o embed oficial do Spotify no frontend.
 
 == Changelog ==
+
+= 0.2.2 =
+* Novo visual premium para o frontend do player.
+* Cabeçalho com identidade azul e branca da Novacap.
+* Cards de episódios com visual mais refinado.
+* Selo de origem do episódio e destaque "Ouça agora".
 
 = 0.2.1 =
 * Atualizada a versão para facilitar substituição/atualização pelo painel do WordPress.
