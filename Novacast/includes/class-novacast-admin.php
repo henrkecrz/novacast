@@ -44,6 +44,22 @@ class Novacast_Admin {
         }
 
         wp_enqueue_media();
+        wp_enqueue_script(
+            'novacast-admin',
+            NOVACAST_PLUGIN_URL . 'assets/js/novacast-admin.js',
+            array( 'jquery' ),
+            NOVACAST_VERSION,
+            true
+        );
+
+        wp_localize_script(
+            'novacast-admin',
+            'NovacastAdmin',
+            array(
+                'mediaTitle'  => __( 'Selecionar áudio do episódio', 'novacast' ),
+                'mediaButton' => __( 'Usar este áudio', 'novacast' ),
+            )
+        );
     }
 
     public static function render_episode_details_meta_box( $post ) {
@@ -70,11 +86,28 @@ class Novacast_Admin {
             <span class="description"><?php esc_html_e( 'O frontend usa áudio HTML5 para arquivos próprios e embeds oficiais para YouTube/Spotify.', 'novacast' ); ?></span>
         </p>
 
-        <p>
-            <label for="novacast_audio_url"><strong><?php esc_html_e( 'URL do áudio próprio', 'novacast' ); ?></strong></label><br>
+        <div class="novacast-admin-audio-field">
+            <label for="novacast_audio_url"><strong><?php esc_html_e( 'URL do áudio próprio', 'novacast' ); ?></strong></label>
             <input type="url" id="novacast_audio_url" name="novacast_audio_url" value="<?php echo esc_attr( $audio_url ); ?>" class="widefat" placeholder="https://exemplo.com/audio.mp3">
-            <span class="description"><?php esc_html_e( 'Use este campo para MP3, WAV, OGG ou outro formato aceito pelo navegador.', 'novacast' ); ?></span>
-        </p>
+            <p>
+                <button type="button" class="button button-secondary" id="novacast_select_audio_button">
+                    <?php esc_html_e( 'Carregar ou escolher áudio da galeria', 'novacast' ); ?>
+                </button>
+                <button type="button" class="button" id="novacast_clear_audio_button">
+                    <?php esc_html_e( 'Limpar áudio', 'novacast' ); ?>
+                </button>
+            </p>
+            <p class="description">
+                <?php esc_html_e( 'Você pode colar uma URL manualmente ou usar a biblioteca de mídia do WordPress para enviar/selecionar MP3, WAV, OGG ou outro formato aceito pelo navegador.', 'novacast' ); ?>
+            </p>
+            <div id="novacast_audio_preview" class="novacast-audio-preview">
+                <?php if ( $audio_url ) : ?>
+                    <audio controls preload="metadata" style="width:100%;max-width:520px;">
+                        <source src="<?php echo esc_url( $audio_url ); ?>">
+                    </audio>
+                <?php endif; ?>
+            </div>
+        </div>
 
         <p>
             <label for="novacast_youtube_url"><strong><?php esc_html_e( 'URL do YouTube', 'novacast' ); ?></strong></label><br>
