@@ -4,7 +4,7 @@ Tags: podcast, audio, player, shortcode, youtube, spotify
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,11 @@ Para sincronizar Spotify, informe Client ID, Client Secret e o ID ou URL de um s
 Os episódios importados usam o embed oficial do Spotify no frontend.
 
 == Changelog ==
+
+= 0.3.1 =
+* Aplicado refinamento visual inspirado no mockup premium do player.
+* Adicionada prévia visual em SVG no diretório docs/.
+* Atualizado o README do GitHub com imagem de apresentação do player.
 
 = 0.3.0 =
 * Adicionado player principal em destaque com o episódio mais recente.
