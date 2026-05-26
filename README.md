@@ -15,19 +15,19 @@ Novacast é um plugin WordPress para gerenciar episódios de podcast e exibir pl
 - Seleção visual da fonte de reprodução.
 - Upload/seleção de áudio pela biblioteca de mídia no cadastro do episódio.
 - Detecção automática da duração do áudio próprio.
-- Player frontend via shortcode.
+- Player frontend customizado para áudio próprio.
+- Controles de play/pause, progresso, busca e mute.
+- Alternância entre tema claro e escuro com ícones de sol e lua.
 - Episódio mais recente em destaque no topo.
 - Lista de episódios abaixo do destaque.
 - Botão **Ver todos os episódios**.
-- Alternância entre tema claro e escuro no frontend.
 - Mini área com ícone de play, número do episódio, data e duração.
-- Reprodução por áudio HTML5 para arquivos próprios.
 - Reprodução por embeds oficiais do YouTube e Spotify.
 - Tela **Novacast > Sincronização**.
 - Sincronização manual com playlist pública do YouTube.
 - Sincronização manual com show do Spotify.
 - Seção frontend com título: **Novacast - O Podcast da Novacap**.
-- Visual premium em azul e branco inspirado em plataformas de áudio.
+- Visual premium em azul e branco com glassmorphism suave.
 - Preview visual em SVG no diretório `docs/`.
 
 ## Estrutura
@@ -93,4 +93,4 @@ O Novacast não baixa áudio do YouTube ou Spotify. Ele importa metadados e exib
 
 ## Versão
 
-0.3.2
+0.3.3
