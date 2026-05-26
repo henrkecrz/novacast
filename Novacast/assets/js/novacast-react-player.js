@@ -50,6 +50,22 @@
         return /^[a-zA-Z0-9]+$/.test(url) ? url : '';
     }
 
+    function Waveform(props) {
+        var bars = [34, 54, 42, 72, 38, 88, 48, 64, 30, 76, 46, 92, 40, 68, 36, 56, 78, 44, 66, 32, 84, 50, 70, 38];
+        var progress = props.progress || 0;
+
+        return createElement('div', { className: 'novacast-waveform', 'aria-hidden': true },
+            bars.map(function (height, index) {
+                var active = index / bars.length * 100 <= progress;
+                return createElement('span', {
+                    key: index,
+                    className: active ? 'is-active' : '',
+                    style: { height: height + '%' }
+                });
+            })
+        );
+    }
+
     function CustomAudioPlayer(props) {
         var audioRef = useRef(null);
         var progressRef = useRef(null);
@@ -152,6 +168,16 @@
             audio.currentTime = ratio * audio.duration;
         }
 
+        function skip(seconds) {
+            var audio = audioRef.current;
+
+            if (!audio || !audio.duration) {
+                return;
+            }
+
+            audio.currentTime = Math.min(Math.max(audio.currentTime + seconds, 0), audio.duration);
+        }
+
         var percentage = duration > 0 ? current / duration * 100 : 0;
 
         return createElement('div', {
@@ -163,32 +189,43 @@
                 preload: 'metadata',
                 src: props.audioUrl
             }),
-            createElement('button', {
-                className: 'novacast-audio-play',
-                type: 'button',
-                onClick: togglePlay,
-                'aria-label': 'Reproduzir ou pausar episódio'
-            }, isPlaying ? 'Ⅱ' : '▶'),
-            createElement('span', { className: 'novacast-audio-time' }, formatTime(current)),
-            createElement('div', {
-                ref: progressRef,
-                className: 'novacast-progress-wrap',
-                onClick: seek,
-                role: 'button',
-                tabIndex: 0
-            }, createElement('span', { className: 'novacast-progress-track' },
-                createElement('span', {
-                    className: 'novacast-progress-fill',
-                    style: { width: percentage + '%' }
-                })
-            )),
-            createElement('span', { className: 'novacast-audio-time' }, formatTime(duration)),
-            createElement('button', {
-                className: 'novacast-audio-muted',
-                type: 'button',
-                onClick: toggleMute,
-                'aria-label': 'Ativar ou desativar som'
-            }, isMuted ? '×' : '♪')
+            createElement('div', { className: 'novacast-audio-primary' },
+                createElement('button', {
+                    className: 'novacast-audio-play',
+                    type: 'button',
+                    onClick: togglePlay,
+                    'aria-label': 'Reproduzir ou pausar episódio'
+                }, isPlaying ? 'Ⅱ' : '▶'),
+                createElement('div', { className: 'novacast-audio-timeline' },
+                    createElement('div', { className: 'novacast-audio-times' },
+                        createElement('span', { className: 'novacast-audio-time' }, formatTime(current)),
+                        createElement('span', { className: 'novacast-audio-time' }, formatTime(duration))
+                    ),
+                    createElement('div', {
+                        ref: progressRef,
+                        className: 'novacast-progress-wrap',
+                        onClick: seek,
+                        role: 'button',
+                        tabIndex: 0
+                    }, createElement('span', { className: 'novacast-progress-track' },
+                        createElement('span', {
+                            className: 'novacast-progress-fill',
+                            style: { width: percentage + '%' }
+                        })
+                    )),
+                    createElement(Waveform, { progress: percentage })
+                )
+            ),
+            createElement('div', { className: 'novacast-audio-actions' },
+                createElement('button', { className: 'novacast-audio-mini', type: 'button', onClick: function () { skip(-10); } }, '−10'),
+                createElement('button', { className: 'novacast-audio-mini', type: 'button', onClick: function () { skip(30); } }, '+30'),
+                createElement('button', {
+                    className: 'novacast-audio-muted',
+                    type: 'button',
+                    onClick: toggleMute,
+                    'aria-label': 'Ativar ou desativar som'
+                }, isMuted ? '×' : '♪')
+            )
         );
     }
 
@@ -252,17 +289,18 @@
                     src: episode.cover,
                     alt: episode.title
                 }),
+                createElement('span', { className: 'novacast-cover-gradient', 'aria-hidden': true }),
+                createElement('span', { className: 'novacast-cover-play', 'aria-hidden': true }, '▶'),
                 createElement('span', { className: 'novacast-cover-wave', 'aria-hidden': true })
             ) : null,
             createElement('div', { className: 'novacast-player-content' },
                 createElement('div', { className: 'novacast-player-meta' },
-                    createElement('span', { className: 'novacast-play-mini', 'aria-hidden': true }, '▶'),
                     createElement('span', { className: 'novacast-episode-number' }, 'Episódio ' + String(number).padStart(2, '0')),
                     createElement('span', { className: 'novacast-player-badge' }, sourceLabel),
                     episode.date ? createElement('span', { className: 'novacast-player-date' }, episode.date) : null,
                     episode.duration ? createElement('span', { className: 'novacast-player-duration' }, episode.duration) : null
                 ),
-                featured ? createElement('span', { className: 'novacast-featured-label' }, 'Episódio mais recente') : null,
+                featured ? createElement('span', { className: 'novacast-featured-label' }, 'Episódio em destaque') : null,
                 createElement('h3', { className: 'novacast-player-title' }, episode.title),
                 episode.description ? createElement('div', {
                     className: 'novacast-player-description',
@@ -274,6 +312,32 @@
                     )
                 )
             )
+        );
+    }
+
+    function EpisodeRow(props) {
+        var episode = props.episode;
+        var number = props.number;
+
+        return createElement('article', { className: 'novacast-episode-row novacast-source-' + episode.source },
+            episode.cover ? createElement('div', { className: 'novacast-row-cover' },
+                createElement('img', { src: episode.cover, alt: episode.title }),
+                createElement('span', { 'aria-hidden': true }, '▶')
+            ) : null,
+            createElement('div', { className: 'novacast-row-main' },
+                createElement('div', { className: 'novacast-row-meta' },
+                    createElement('span', null, 'Episódio ' + String(number).padStart(2, '0')),
+                    episode.sourceLabel ? createElement('span', null, episode.sourceLabel) : null,
+                    episode.date ? createElement('span', null, episode.date) : null
+                ),
+                createElement('h4', null, episode.title),
+                createElement('div', { className: 'novacast-row-wave', 'aria-hidden': true },
+                    [1,2,3,4,5,6,7,8,9,10,11,12,13,14].map(function (item) {
+                        return createElement('span', { key: item, style: { height: (18 + item % 5 * 7) + 'px' } });
+                    })
+                )
+            ),
+            episode.duration ? createElement('span', { className: 'novacast-row-duration' }, episode.duration) : null
         );
     }
 
@@ -319,16 +383,15 @@
             ),
             createElement(EpisodeCard, { episode: featured, number: 1, featured: true }),
             moreEpisodes.length ? createElement('div', { className: 'novacast-list-header' },
-                createElement('h3', null, 'Mais episódios'),
+                createElement('h3', null, 'Todos os episódios'),
                 data.archiveLink ? createElement('a', { className: 'novacast-view-all', href: data.archiveLink }, 'Ver todos os episódios') : null
             ) : null,
-            moreEpisodes.length ? createElement('div', { className: 'novacast-player-list', 'data-novacast-player-list': true },
+            moreEpisodes.length ? createElement('div', { className: 'novacast-episode-rows', 'data-novacast-player-list': true },
                 moreEpisodes.map(function (episode, index) {
-                    return createElement(EpisodeCard, {
+                    return createElement(EpisodeRow, {
                         key: episode.id || index,
                         episode: episode,
-                        number: index + 2,
-                        featured: false
+                        number: index + 2
                     });
                 })
             ) : null
