@@ -44,6 +44,12 @@ class Novacast_Admin {
         }
 
         wp_enqueue_media();
+        wp_enqueue_style(
+            'novacast-admin',
+            NOVACAST_PLUGIN_URL . 'assets/css/novacast-admin.css',
+            array(),
+            NOVACAST_VERSION
+        );
         wp_enqueue_script(
             'novacast-admin',
             NOVACAST_PLUGIN_URL . 'assets/js/novacast-admin.js',
@@ -56,8 +62,12 @@ class Novacast_Admin {
             'novacast-admin',
             'NovacastAdmin',
             array(
-                'mediaTitle'  => __( 'Selecionar áudio do episódio', 'novacast' ),
-                'mediaButton' => __( 'Usar este áudio', 'novacast' ),
+                'mediaTitle'       => __( 'Selecionar áudio do episódio', 'novacast' ),
+                'mediaButton'      => __( 'Usar este áudio', 'novacast' ),
+                'detectingText'    => __( 'Detectando duração...', 'novacast' ),
+                'detectedText'     => __( 'Duração detectada automaticamente.', 'novacast' ),
+                'notDetectedText'  => __( 'Não foi possível detectar a duração. Você ainda pode preencher manualmente.', 'novacast' ),
+                'emptyAudioText'   => __( 'Selecione ou informe uma URL de áudio para detectar a duração.', 'novacast' ),
             )
         );
     }
@@ -76,71 +86,94 @@ class Novacast_Admin {
         $active                 = get_post_meta( $post->ID, self::META_ACTIVE, true );
         $active                 = '' === $active ? '1' : $active;
         ?>
-        <p>
-            <label for="novacast_source"><strong><?php esc_html_e( 'Fonte de reprodução', 'novacast' ); ?></strong></label><br>
-            <select id="novacast_source" name="novacast_source">
-                <option value="audio" <?php selected( $source, 'audio' ); ?>><?php esc_html_e( 'Áudio próprio', 'novacast' ); ?></option>
-                <option value="youtube" <?php selected( $source, 'youtube' ); ?>><?php esc_html_e( 'YouTube Embed', 'novacast' ); ?></option>
-                <option value="spotify" <?php selected( $source, 'spotify' ); ?>><?php esc_html_e( 'Spotify Embed', 'novacast' ); ?></option>
-            </select>
-            <span class="description"><?php esc_html_e( 'O frontend usa áudio HTML5 para arquivos próprios e embeds oficiais para YouTube/Spotify.', 'novacast' ); ?></span>
-        </p>
+        <div class="novacast-admin-panel" data-novacast-admin-panel>
+            <div class="novacast-admin-hero">
+                <div>
+                    <span class="novacast-admin-kicker"><?php esc_html_e( 'Novacast', 'novacast' ); ?></span>
+                    <h3><?php esc_html_e( 'Configure o episódio do podcast', 'novacast' ); ?></h3>
+                    <p><?php esc_html_e( 'Escolha a fonte de reprodução, carregue o áudio, detecte a duração automaticamente e prepare o episódio para o frontend.', 'novacast' ); ?></p>
+                </div>
+                <label class="novacast-admin-switch">
+                    <input type="checkbox" name="novacast_active" value="1" <?php checked( $active, '1' ); ?>>
+                    <span><?php esc_html_e( 'Exibir no site', 'novacast' ); ?></span>
+                </label>
+            </div>
 
-        <div class="novacast-admin-audio-field">
-            <label for="novacast_audio_url"><strong><?php esc_html_e( 'URL do áudio próprio', 'novacast' ); ?></strong></label>
-            <input type="url" id="novacast_audio_url" name="novacast_audio_url" value="<?php echo esc_attr( $audio_url ); ?>" class="widefat" placeholder="https://exemplo.com/audio.mp3">
-            <p>
-                <button type="button" class="button button-secondary" id="novacast_select_audio_button">
-                    <?php esc_html_e( 'Carregar ou escolher áudio da galeria', 'novacast' ); ?>
-                </button>
-                <button type="button" class="button" id="novacast_clear_audio_button">
-                    <?php esc_html_e( 'Limpar áudio', 'novacast' ); ?>
-                </button>
-            </p>
-            <p class="description">
-                <?php esc_html_e( 'Você pode colar uma URL manualmente ou usar a biblioteca de mídia do WordPress para enviar/selecionar MP3, WAV, OGG ou outro formato aceito pelo navegador.', 'novacast' ); ?>
-            </p>
-            <div id="novacast_audio_preview" class="novacast-audio-preview">
-                <?php if ( $audio_url ) : ?>
-                    <audio controls preload="metadata" style="width:100%;max-width:520px;">
-                        <source src="<?php echo esc_url( $audio_url ); ?>">
-                    </audio>
-                <?php endif; ?>
+            <div class="novacast-admin-section">
+                <h4><?php esc_html_e( 'Fonte de reprodução', 'novacast' ); ?></h4>
+                <input type="hidden" id="novacast_source" name="novacast_source" value="<?php echo esc_attr( $source ); ?>">
+                <div class="novacast-source-cards" data-novacast-source-cards>
+                    <button type="button" class="novacast-source-card" data-source="audio">
+                        <span class="novacast-source-icon">♪</span>
+                        <strong><?php esc_html_e( 'Áudio próprio', 'novacast' ); ?></strong>
+                        <small><?php esc_html_e( 'Upload, galeria ou URL direta.', 'novacast' ); ?></small>
+                    </button>
+                    <button type="button" class="novacast-source-card" data-source="youtube">
+                        <span class="novacast-source-icon">▶</span>
+                        <strong><?php esc_html_e( 'YouTube', 'novacast' ); ?></strong>
+                        <small><?php esc_html_e( 'Use o embed oficial.', 'novacast' ); ?></small>
+                    </button>
+                    <button type="button" class="novacast-source-card" data-source="spotify">
+                        <span class="novacast-source-icon">●</span>
+                        <strong><?php esc_html_e( 'Spotify', 'novacast' ); ?></strong>
+                        <small><?php esc_html_e( 'Use o embed oficial.', 'novacast' ); ?></small>
+                    </button>
+                </div>
+            </div>
+
+            <div class="novacast-admin-grid">
+                <div class="novacast-admin-card novacast-source-panel" data-source-panel="audio">
+                    <h4><?php esc_html_e( 'Áudio próprio', 'novacast' ); ?></h4>
+                    <label for="novacast_audio_url"><?php esc_html_e( 'URL do áudio', 'novacast' ); ?></label>
+                    <input type="url" id="novacast_audio_url" name="novacast_audio_url" value="<?php echo esc_attr( $audio_url ); ?>" class="widefat" placeholder="https://exemplo.com/audio.mp3">
+                    <div class="novacast-admin-actions">
+                        <button type="button" class="button button-primary" id="novacast_select_audio_button">
+                            <?php esc_html_e( 'Carregar ou escolher áudio', 'novacast' ); ?>
+                        </button>
+                        <button type="button" class="button" id="novacast_detect_duration_button">
+                            <?php esc_html_e( 'Detectar duração', 'novacast' ); ?>
+                        </button>
+                        <button type="button" class="button" id="novacast_clear_audio_button">
+                            <?php esc_html_e( 'Limpar', 'novacast' ); ?>
+                        </button>
+                    </div>
+                    <p class="description"><?php esc_html_e( 'Ao selecionar um arquivo da biblioteca, o Novacast tenta preencher a duração automaticamente.', 'novacast' ); ?></p>
+                    <div id="novacast_audio_preview" class="novacast-audio-preview">
+                        <?php if ( $audio_url ) : ?>
+                            <audio controls preload="metadata" style="width:100%;max-width:620px;">
+                                <source src="<?php echo esc_url( $audio_url ); ?>">
+                            </audio>
+                        <?php endif; ?>
+                    </div>
+                    <div class="novacast-duration-status" id="novacast_duration_status" aria-live="polite"></div>
+                </div>
+
+                <div class="novacast-admin-card novacast-source-panel" data-source-panel="youtube">
+                    <h4><?php esc_html_e( 'YouTube', 'novacast' ); ?></h4>
+                    <label for="novacast_youtube_url"><?php esc_html_e( 'URL do YouTube', 'novacast' ); ?></label>
+                    <input type="url" id="novacast_youtube_url" name="novacast_youtube_url" value="<?php echo esc_attr( $youtube_url ); ?>" class="widefat" placeholder="https://www.youtube.com/watch?v=VIDEO_ID">
+                </div>
+
+                <div class="novacast-admin-card novacast-source-panel" data-source-panel="spotify">
+                    <h4><?php esc_html_e( 'Spotify', 'novacast' ); ?></h4>
+                    <label for="novacast_spotify_url"><?php esc_html_e( 'URL do Spotify', 'novacast' ); ?></label>
+                    <input type="url" id="novacast_spotify_url" name="novacast_spotify_url" value="<?php echo esc_attr( $spotify_url ); ?>" class="widefat" placeholder="https://open.spotify.com/episode/EPISODE_ID">
+                </div>
+
+                <div class="novacast-admin-card">
+                    <h4><?php esc_html_e( 'Metadados', 'novacast' ); ?></h4>
+                    <label for="novacast_duration"><?php esc_html_e( 'Duração', 'novacast' ); ?></label>
+                    <input type="text" id="novacast_duration" name="novacast_duration" value="<?php echo esc_attr( $duration ); ?>" class="regular-text" placeholder="00:45:30">
+
+                    <label for="novacast_external_id"><?php esc_html_e( 'ID externo', 'novacast' ); ?></label>
+                    <input type="text" id="novacast_external_id" name="novacast_external_id" value="<?php echo esc_attr( $external_id ); ?>" class="regular-text" placeholder="ID do vídeo ou episódio importado">
+
+                    <label for="novacast_external_thumbnail_url"><?php esc_html_e( 'URL de imagem externa', 'novacast' ); ?></label>
+                    <input type="url" id="novacast_external_thumbnail_url" name="novacast_external_thumbnail_url" value="<?php echo esc_attr( $external_thumbnail_url ); ?>" class="widefat" placeholder="https://exemplo.com/capa.jpg">
+                    <p class="description"><?php esc_html_e( 'Usada quando o episódio vem de uma sincronização e não há imagem destacada no WordPress.', 'novacast' ); ?></p>
+                </div>
             </div>
         </div>
-
-        <p>
-            <label for="novacast_youtube_url"><strong><?php esc_html_e( 'URL do YouTube', 'novacast' ); ?></strong></label><br>
-            <input type="url" id="novacast_youtube_url" name="novacast_youtube_url" value="<?php echo esc_attr( $youtube_url ); ?>" class="widefat" placeholder="https://www.youtube.com/watch?v=VIDEO_ID">
-        </p>
-
-        <p>
-            <label for="novacast_spotify_url"><strong><?php esc_html_e( 'URL do Spotify', 'novacast' ); ?></strong></label><br>
-            <input type="url" id="novacast_spotify_url" name="novacast_spotify_url" value="<?php echo esc_attr( $spotify_url ); ?>" class="widefat" placeholder="https://open.spotify.com/episode/EPISODE_ID">
-        </p>
-
-        <p>
-            <label for="novacast_external_id"><strong><?php esc_html_e( 'ID externo', 'novacast' ); ?></strong></label><br>
-            <input type="text" id="novacast_external_id" name="novacast_external_id" value="<?php echo esc_attr( $external_id ); ?>" class="regular-text" placeholder="ID do vídeo ou episódio importado">
-        </p>
-
-        <p>
-            <label for="novacast_external_thumbnail_url"><strong><?php esc_html_e( 'URL de imagem externa', 'novacast' ); ?></strong></label><br>
-            <input type="url" id="novacast_external_thumbnail_url" name="novacast_external_thumbnail_url" value="<?php echo esc_attr( $external_thumbnail_url ); ?>" class="widefat" placeholder="https://exemplo.com/capa.jpg">
-            <span class="description"><?php esc_html_e( 'Usada quando o episódio vem de uma sincronização e não há imagem destacada no WordPress.', 'novacast' ); ?></span>
-        </p>
-
-        <p>
-            <label for="novacast_duration"><strong><?php esc_html_e( 'Duração', 'novacast' ); ?></strong></label><br>
-            <input type="text" id="novacast_duration" name="novacast_duration" value="<?php echo esc_attr( $duration ); ?>" class="regular-text" placeholder="00:45:30">
-        </p>
-
-        <p>
-            <label>
-                <input type="checkbox" name="novacast_active" value="1" <?php checked( $active, '1' ); ?>>
-                <?php esc_html_e( 'Exibir este episódio no frontend', 'novacast' ); ?>
-            </label>
-        </p>
         <?php
     }
 
