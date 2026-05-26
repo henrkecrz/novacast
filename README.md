@@ -15,6 +15,7 @@ Novacast é um plugin WordPress para gerenciar episódios de podcast e exibir pl
 - Seleção visual da fonte de reprodução.
 - Upload/seleção de áudio pela biblioteca de mídia no cadastro do episódio.
 - Detecção automática da duração do áudio próprio.
+- Frontend renderizado em React usando `wp.element` do WordPress.
 - Player frontend customizado para áudio próprio.
 - Controles de play/pause, progresso, busca e mute.
 - Alternância entre tema claro e escuro com ícones de sol e lua.
@@ -47,11 +48,18 @@ Novacast/
 │   │   └── novacast-frontend.css
 │   └── js/
 │       ├── novacast-admin.js
-│       └── novacast-player.js
+│       ├── novacast-player.js
+│       └── novacast-react-player.js
 
 docs/
 └── novacast-premium-player.svg
 ```
+
+## Como funciona o React no plugin
+
+O PHP não executa React diretamente. O WordPress carrega o React por meio do pacote `wp.element`.
+
+Neste plugin, o PHP coleta os episódios, monta um JSON seguro e imprime um container no shortcode. O arquivo `novacast-react-player.js` lê esse JSON e renderiza o player no frontend usando React.
 
 ## Instalação
 
@@ -93,4 +101,4 @@ O Novacast não baixa áudio do YouTube ou Spotify. Ele importa metadados e exib
 
 ## Versão
 
-0.3.3
+0.4.0
