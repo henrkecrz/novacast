@@ -1,0 +1,203 @@
+.novacast-admin-panel {
+    margin: 0.5rem 0;
+    color: #0f172a;
+}
+
+.novacast-admin-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #0b3f91 0%, #0e56c5 55%, #1d74f5 100%);
+    color: #ffffff;
+    box-shadow: 0 14px 30px rgba(29, 116, 245, 0.16);
+}
+
+.novacast-admin-hero h3 {
+    margin: 0.35rem 0 0.35rem;
+    color: #ffffff;
+    font-size: 1.25rem;
+    line-height: 1.25;
+}
+
+.novacast-admin-hero p {
+    max-width: 760px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.novacast-admin-kicker {
+    display: inline-flex;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.novacast-admin-switch {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.novacast-admin-section {
+    margin-top: 1rem;
+}
+
+.novacast-admin-section h4,
+.novacast-admin-card h4 {
+    margin: 0 0 0.75rem;
+    color: #0f172a;
+    font-size: 1rem;
+}
+
+.novacast-source-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.novacast-source-card {
+    display: grid;
+    gap: 0.25rem;
+    min-height: 112px;
+    padding: 1rem;
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #1e293b;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.novacast-source-card:hover,
+.novacast-source-card.is-active {
+    transform: translateY(-1px);
+    border-color: #1d74f5;
+    box-shadow: 0 12px 24px rgba(29, 116, 245, 0.12);
+}
+
+.novacast-source-card.is-active {
+    background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+}
+
+.novacast-source-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: #e8f1ff;
+    color: #0b57d0;
+    font-weight: 800;
+}
+
+.novacast-source-card strong {
+    color: #0f172a;
+    font-size: 0.98rem;
+}
+
+.novacast-source-card small {
+    color: #64748b;
+    line-height: 1.35;
+}
+
+.novacast-admin-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.novacast-admin-card {
+    padding: 1rem;
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+}
+
+.novacast-admin-card label {
+    display: block;
+    margin: 0.75rem 0 0.35rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.novacast-admin-card label:first-of-type {
+    margin-top: 0;
+}
+
+.novacast-admin-card input[type="url"],
+.novacast-admin-card input[type="text"] {
+    border-color: #cbd5e1;
+    border-radius: 8px;
+    min-height: 38px;
+}
+
+.novacast-admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.novacast-audio-preview {
+    margin-top: 0.85rem;
+}
+
+.novacast-duration-status {
+    min-height: 1.2rem;
+    margin-top: 0.65rem;
+    font-weight: 700;
+}
+
+.novacast-duration-status.is-loading {
+    color: #0b57d0;
+}
+
+.novacast-duration-status.is-success {
+    color: #15803d;
+}
+
+.novacast-duration-status.is-error {
+    color: #b91c1c;
+}
+
+.novacast-source-panel {
+    display: none;
+}
+
+.novacast-source-panel.is-visible {
+    display: block;
+}
+
+@media (max-width: 960px) {
+    .novacast-admin-hero,
+    .novacast-admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .novacast-admin-hero {
+        display: grid;
+    }
+
+    .novacast-source-cards {
+        grid-template-columns: 1fr;
+    }
+}
