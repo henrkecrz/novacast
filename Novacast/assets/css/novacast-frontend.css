@@ -1,0 +1,69 @@
+.novacast-player-list {
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.novacast-player-card {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.novacast-player-cover {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #f3f4f6;
+}
+
+.novacast-player-title {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+.novacast-player-duration {
+    margin: 0 0 0.75rem;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.novacast-player-description {
+    margin-bottom: 1rem;
+    color: #334155;
+}
+
+.novacast-player-description p {
+    margin: 0;
+}
+
+.novacast-audio {
+    width: 100%;
+}
+
+.novacast-empty {
+    padding: 1rem;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #475569;
+}
+
+@media (max-width: 640px) {
+    .novacast-player-card {
+        grid-template-columns: 1fr;
+    }
+
+    .novacast-player-cover {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+}
