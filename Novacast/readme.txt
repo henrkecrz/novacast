@@ -1,10 +1,10 @@
 === Novacast ===
 Contributors: henrkecrz
-Tags: podcast, audio, player, shortcode, youtube, spotify
+Tags: podcast, audio, player, shortcode, youtube, spotify, react
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.3.3
+Stable tag: 0.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,11 +14,11 @@ Gerencie episódios de podcast no WordPress e exiba players no frontend.
 
 Novacast cria um painel de episódios de podcast dentro do WordPress. Cada episódio pode ter título, descrição, capa, URL de áudio, duração, fonte de reprodução e status de exibição.
 
-O plugin oferece o shortcode [novacast_player] para exibir episódios no frontend com player responsivo.
+O plugin oferece o shortcode [novacast_player] para exibir episódios no frontend com player responsivo renderizado em React usando o wp.element do WordPress.
 
 Fontes de reprodução disponíveis:
 
-* Áudio próprio via player HTML5.
+* Áudio próprio via player customizado em React.
 * YouTube via embed oficial.
 * Spotify via embed oficial.
 
@@ -63,6 +63,12 @@ Para sincronizar Spotify, informe Client ID, Client Secret e o ID ou URL de um s
 Os episódios importados usam o embed oficial do Spotify no frontend.
 
 == Changelog ==
+
+= 0.4.0 =
+* Frontend do player migrado para React usando wp.element do WordPress.
+* PHP agora prepara os dados dos episódios e envia JSON para o componente React.
+* Adicionado bundle Novacast React Player sem necessidade de etapa Node/build.
+* Mantido suporte a áudio próprio, YouTube e Spotify.
 
 = 0.3.3 =
 * Substituído o player nativo de áudio por um player customizado premium.
