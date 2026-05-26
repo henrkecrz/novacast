@@ -54,12 +54,20 @@ class Novacast_Frontend {
         ob_start();
         ?>
         <section class="novacast-section" aria-label="<?php echo esc_attr__( 'Novacast - O Podcast da Novacap', 'novacast' ); ?>">
-            <div class="novacast-section-header">
-                <span class="novacast-section-kicker"><?php esc_html_e( 'Podcast Oficial', 'novacast' ); ?></span>
-                <h2 class="novacast-section-title"><?php esc_html_e( 'Novacast - O Podcast da Novacap', 'novacast' ); ?></h2>
-                <p class="novacast-section-description">
-                    <?php esc_html_e( 'Fique atualizado com as notícias diárias sobre o que acontece em nossa cidade.', 'novacast' ); ?>
-                </p>
+            <div class="novacast-section-hero">
+                <div class="novacast-section-header">
+                    <span class="novacast-section-kicker"><?php esc_html_e( 'Podcast Oficial', 'novacast' ); ?></span>
+                    <h2 class="novacast-section-title"><?php esc_html_e( 'Novacast - O Podcast da Novacap', 'novacast' ); ?></h2>
+                    <p class="novacast-section-description">
+                        <?php esc_html_e( 'Fique atualizado com as notícias diárias sobre o que acontece em nossa cidade.', 'novacast' ); ?>
+                    </p>
+                </div>
+
+                <div class="novacast-section-accent" aria-hidden="true">
+                    <span class="novacast-accent-orb novacast-accent-orb-one"></span>
+                    <span class="novacast-accent-orb novacast-accent-orb-two"></span>
+                    <span class="novacast-accent-wave"></span>
+                </div>
             </div>
 
             <div class="novacast-player-list" data-novacast-player-list>
@@ -75,6 +83,7 @@ class Novacast_Frontend {
                     $cover                  = get_the_post_thumbnail_url( $episode->ID, 'medium' );
                     $cover                  = $cover ? $cover : $external_thumbnail_url;
                     $player_markup          = self::render_episode_player( $source, $audio_url, $youtube_url, $spotify_url );
+                    $source_label           = self::get_source_label( $source );
 
                     if ( empty( $player_markup ) ) {
                         continue;
@@ -82,21 +91,33 @@ class Novacast_Frontend {
                     ?>
                     <article class="novacast-player-card novacast-source-<?php echo esc_attr( $source ); ?>">
                         <?php if ( $cover ) : ?>
-                            <img class="novacast-player-cover" src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( get_the_title( $episode ) ); ?>">
+                            <div class="novacast-player-cover-wrap">
+                                <img class="novacast-player-cover" src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( get_the_title( $episode ) ); ?>">
+                            </div>
                         <?php endif; ?>
 
                         <div class="novacast-player-content">
-                            <h3 class="novacast-player-title"><?php echo esc_html( get_the_title( $episode ) ); ?></h3>
+                            <div class="novacast-player-meta">
+                                <span class="novacast-player-badge"><?php echo esc_html( $source_label ); ?></span>
 
-                            <?php if ( $duration ) : ?>
-                                <p class="novacast-player-duration"><?php echo esc_html( $duration ); ?></p>
-                            <?php endif; ?>
+                                <?php if ( $duration ) : ?>
+                                    <span class="novacast-player-duration"><?php echo esc_html( $duration ); ?></span>
+                                <?php endif; ?>
+                            </div>
+
+                            <h3 class="novacast-player-title"><?php echo esc_html( get_the_title( $episode ) ); ?></h3>
 
                             <div class="novacast-player-description">
                                 <?php echo wp_kses_post( wpautop( get_the_excerpt( $episode ) ?: wp_trim_words( wp_strip_all_tags( $episode->post_content ), 28 ) ) ); ?>
                             </div>
 
-                            <?php echo $player_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                            <div class="novacast-player-footer">
+                                <span class="novacast-listen-now"><?php esc_html_e( 'Ouça agora', 'novacast' ); ?></span>
+
+                                <div class="novacast-player-control">
+                                    <?php echo $player_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                </div>
+                            </div>
                         </div>
                     </article>
                 <?php endforeach; ?>
@@ -144,6 +165,17 @@ class Novacast_Frontend {
             esc_url( $audio_url ),
             esc_html__( 'Seu navegador não suporta reprodução de áudio.', 'novacast' )
         );
+    }
+
+    private static function get_source_label( $source ) {
+        switch ( $source ) {
+            case 'youtube':
+                return __( 'YouTube', 'novacast' );
+            case 'spotify':
+                return __( 'Spotify', 'novacast' );
+            default:
+                return __( 'Áudio próprio', 'novacast' );
+        }
     }
 
     private static function extract_youtube_id( $url ) {
