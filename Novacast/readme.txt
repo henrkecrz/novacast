@@ -4,7 +4,7 @@ Tags: podcast, audio, player, shortcode, youtube, spotify
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.2.2
+Stable tag: 0.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,10 @@ Exibir até 5 episódios:
 
 [novacast_player limit="5"]
 
+Exibir com tema escuro inicial:
+
+[novacast_player theme="dark"]
+
 Exibir um episódio específico:
 
 [novacast_player id="123"]
@@ -59,6 +63,14 @@ Para sincronizar Spotify, informe Client ID, Client Secret e o ID ou URL de um s
 Os episódios importados usam o embed oficial do Spotify no frontend.
 
 == Changelog ==
+
+= 0.3.0 =
+* Adicionado player principal em destaque com o episódio mais recente.
+* Adicionada lista de episódios abaixo do destaque.
+* Adicionado botão "Ver todos os episódios".
+* Adicionada opção de alternar entre tema claro e escuro no frontend.
+* Adicionados ícone de play, número do episódio e data.
+* Adicionado botão para carregar ou escolher áudio pela biblioteca de mídia no cadastro do episódio.
 
 = 0.2.2 =
 * Novo visual premium para o frontend do player.
