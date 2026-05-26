@@ -14,6 +14,7 @@ Novacast é um plugin WordPress para gerenciar episódios de podcast e exibir pl
 - Sincronização manual com playlist pública do YouTube.
 - Sincronização manual com show do Spotify.
 - Seção frontend com título: **Novacast - O Podcast da Novacap**.
+- Visual premium em azul e branco inspirado em plataformas de áudio.
 
 ## Estrutura
 
@@ -67,4 +68,4 @@ O Novacast não baixa áudio do YouTube ou Spotify. Ele importa metadados e exib
 
 ## Versão
 
-0.2.1
+0.2.2
