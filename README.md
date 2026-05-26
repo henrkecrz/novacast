@@ -1,5 +1,9 @@
 # Novacast
 
+<p align="center">
+  <img src="docs/novacast-premium-player.svg" alt="Preview premium do Novacast" width="100%">
+</p>
+
 Novacast é um plugin WordPress para gerenciar episódios de podcast e exibir players no frontend.
 
 ## Recursos atuais
@@ -21,6 +25,7 @@ Novacast é um plugin WordPress para gerenciar episódios de podcast e exibir pl
 - Sincronização manual com show do Spotify.
 - Seção frontend com título: **Novacast - O Podcast da Novacap**.
 - Visual premium em azul e branco inspirado em plataformas de áudio.
+- Preview visual em SVG no diretório `docs/`.
 
 ## Estrutura
 
@@ -39,6 +44,9 @@ Novacast/
 │   └── js/
 │       ├── novacast-admin.js
 │       └── novacast-player.js
+
+docs/
+└── novacast-premium-player.svg
 ```
 
 ## Instalação
@@ -81,4 +89,4 @@ O Novacast não baixa áudio do YouTube ou Spotify. Ele importa metadados e exib
 
 ## Versão
 
-0.3.0
+0.3.1
