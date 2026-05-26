@@ -49,6 +49,32 @@
     width: 100%;
 }
 
+.novacast-embed {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #0f172a;
+}
+
+.novacast-embed iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+}
+
+.novacast-youtube {
+    aspect-ratio: 16 / 9;
+}
+
+.novacast-youtube iframe {
+    height: 100%;
+}
+
+.novacast-spotify iframe {
+    min-height: 152px;
+}
+
 .novacast-empty {
     padding: 1rem;
     border-radius: 12px;
