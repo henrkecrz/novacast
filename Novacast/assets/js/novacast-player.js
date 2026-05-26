@@ -16,4 +16,26 @@
             }
         });
     }, true);
+
+    document.addEventListener('click', function (event) {
+        var toggle = event.target.closest('[data-novacast-theme-toggle]');
+
+        if (!toggle) {
+            return;
+        }
+
+        var section = toggle.closest('[data-novacast-section]');
+        var label = toggle.querySelector('[data-novacast-theme-label]');
+
+        if (!section) {
+            return;
+        }
+
+        var isDark = section.classList.toggle('novacast-theme-dark');
+        section.classList.toggle('novacast-theme-light', !isDark);
+
+        if (label) {
+            label.textContent = isDark ? 'Tema claro' : 'Tema escuro';
+        }
+    });
 })();
