@@ -4,7 +4,7 @@ Tags: podcast, audio, player, shortcode, youtube, spotify, react
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.4.0
+Stable tag: 0.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,13 @@ Para sincronizar Spotify, informe Client ID, Client Secret e o ID ou URL de um s
 Os episódios importados usam o embed oficial do Spotify no frontend.
 
 == Changelog ==
+
+= 0.4.1 =
+* Visual do player React refinado para uma aparência mais premium.
+* Adicionado waveform visual no player principal.
+* Adicionados botões de avançar 30s e voltar 10s.
+* Lista de episódios redesenhada em linhas compactas com mini waveform.
+* Capa do episódio recebeu overlay, botão visual de play e acabamento mais editorial.
 
 = 0.4.0 =
 * Frontend do player migrado para React usando wp.element do WordPress.
