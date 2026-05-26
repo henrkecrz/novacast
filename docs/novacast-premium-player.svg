@@ -1,0 +1,96 @@
+<svg width="1400" height="780" viewBox="0 0 1400 780" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1400" y2="780" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#003A91"/>
+      <stop offset="0.55" stop-color="#0B57D0"/>
+      <stop offset="1" stop-color="#002B70"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="110" y1="65" x2="1290" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EEF5FF"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="476" y1="335" x2="875" y2="335" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0C4FC1"/>
+      <stop offset="1" stop-color="#1D74F5"/>
+    </linearGradient>
+    <filter id="shadow" x="60" y="20" width="1280" height="730" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="35" flood-color="#082B67" flood-opacity="0.28"/>
+    </filter>
+    <filter id="cardShadow" x="70" y="130" width="1260" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#0B3F91" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="780" fill="url(#bg)"/>
+  <circle cx="1160" cy="110" r="240" fill="#5FA8FF" opacity="0.12"/>
+  <circle cx="170" cy="660" r="210" fill="#DCEAFF" opacity="0.10"/>
+
+  <g filter="url(#shadow)">
+    <rect x="90" y="50" width="1220" height="670" rx="38" fill="url(#panel)"/>
+    <rect x="90.5" y="50.5" width="1219" height="669" rx="37.5" stroke="#DBEAFF"/>
+  </g>
+
+  <rect x="125" y="88" width="58" height="58" rx="18" fill="#E8F1FF" stroke="#BBD5FF" stroke-width="2"/>
+  <path d="M154 105v25M144 120c0 8 4 14 10 14s10-6 10-14v-8c0-7-4-11-10-11s-10 4-10 11v8ZM140 130c3 7 8 11 14 11s11-4 14-11M154 141v8" stroke="#0B57D0" stroke-width="3" stroke-linecap="round"/>
+
+  <text x="205" y="112" fill="#09245A" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="800">Novacast - O Podcast da Novacap</text>
+  <text x="205" y="142" fill="#31507F" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="600">Fique atualizado com as notícias diárias sobre o que acontece em nossa cidade.</text>
+  <rect x="1135" y="92" width="140" height="44" rx="22" fill="#FFFFFF" opacity="0.72"/>
+  <text x="1174" y="119" fill="#0B57D0" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800">Tema escuro</text>
+  <path d="M1159 109c-7 6-4 18 6 20 4 1 8 0 11-3-12 1-18-9-12-20-2 0-4 1-5 3Z" fill="#0B57D0"/>
+
+  <g filter="url(#cardShadow)">
+    <rect x="115" y="180" width="1170" height="345" rx="32" fill="#FFFFFF"/>
+    <rect x="115.5" y="180.5" width="1169" height="344" rx="31.5" stroke="#D9E8FF"/>
+  </g>
+
+  <rect x="145" y="210" width="340" height="285" rx="26" fill="#0B3F91"/>
+  <rect x="145" y="210" width="340" height="285" rx="26" fill="url(#blue)" opacity="0.24"/>
+  <path d="M180 400C225 338 263 380 304 320C350 255 392 300 445 238" stroke="#FFFFFF" stroke-width="4" opacity="0.88"/>
+  <g opacity="0.75" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round">
+    <path d="M196 350v-34"/><path d="M210 366v-66"/><path d="M224 356v-45"/><path d="M238 374v-82"/><path d="M252 360v-50"/><path d="M266 342v-28"/><path d="M280 372v-75"/><path d="M294 358v-40"/><path d="M308 349v-26"/><path d="M322 368v-62"/><path d="M336 360v-48"/><path d="M350 340v-23"/><path d="M364 366v-58"/><path d="M378 354v-35"/><path d="M392 342v-24"/>
+  </g>
+  <rect x="165" y="245" width="58" height="210" rx="8" fill="#061B42" opacity="0.42"/>
+  <rect x="245" y="260" width="70" height="195" rx="8" fill="#082B67" opacity="0.42"/>
+  <rect x="340" y="230" width="82" height="225" rx="8" fill="#061B42" opacity="0.42"/>
+
+  <rect x="525" y="220" width="178" height="34" rx="17" fill="#E8F1FF"/>
+  <text x="548" y="242" fill="#0B57D0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="900">EPISÓDIO EM DESTAQUE</text>
+  <rect x="720" y="220" width="102" height="34" rx="17" fill="#EEF5FF"/>
+  <text x="742" y="242" fill="#0B57D0" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700">Episódio 01</text>
+  <rect x="838" y="220" width="114" height="34" rx="17" fill="#EEF5FF"/>
+  <text x="858" y="242" fill="#0B57D0" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700">Áudio próprio</text>
+  <rect x="970" y="220" width="120" height="34" rx="17" fill="#F1F5F9"/>
+  <text x="994" y="242" fill="#4E6388" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700">26/05/2025</text>
+  <rect x="1106" y="220" width="104" height="34" rx="17" fill="#F1F5F9"/>
+  <text x="1128" y="242" fill="#4E6388" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700">00:00:34</text>
+
+  <text x="525" y="307" fill="#09245A" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900">Novacast</text>
+  <text x="525" y="345" fill="#31507F" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600">novocast pra voce</text>
+  <text x="525" y="385" fill="#31507F" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500">As principais informações, projetos e novidades da Novacap,</text>
+  <text x="525" y="415" fill="#31507F" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500">com credibilidade e compromisso com o Distrito Federal.</text>
+
+  <rect x="510" y="450" width="720" height="62" rx="31" fill="#F7FBFF" stroke="#D9E8FF"/>
+  <circle cx="555" cy="481" r="30" fill="url(#blue)"/>
+  <path d="M548 467l21 14-21 14v-28Z" fill="#FFFFFF"/>
+  <text x="622" y="488" fill="#0B57D0" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800">00:17</text>
+  <rect x="685" y="478" width="330" height="6" rx="3" fill="#D9E8FF"/>
+  <rect x="685" y="478" width="205" height="6" rx="3" fill="#0B57D0"/>
+  <circle cx="890" cy="481" r="9" fill="#1D74F5"/>
+  <text x="1040" y="488" fill="#6A7FA6" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">00:33</text>
+  <path d="M1123 472v19M1131 466c8 8 8 24 0 31M1111 474l-10 8 10 8v-16Z" stroke="#0B57D0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="1168" y="478" width="42" height="6" rx="3" fill="#0B57D0"/>
+
+  <text x="120" y="575" fill="#09245A" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900">Todos os episódios</text>
+  <text x="1120" y="575" fill="#0B57D0" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800">Ver todos os episódios ›</text>
+
+  <g>
+    <rect x="120" y="600" width="1160" height="66" rx="20" fill="#FFFFFF" stroke="#D9E8FF"/>
+    <rect x="140" y="612" width="118" height="42" rx="12" fill="#0B57D0" opacity="0.85"/>
+    <circle cx="228" cy="633" r="22" fill="#09245A" opacity="0.72"/><path d="M221 622l17 11-17 11v-22Z" fill="#FFFFFF"/>
+    <text x="285" y="626" fill="#0B57D0" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800">Episódio 02  •  Áudio próprio  •  25/05/2025</text>
+    <text x="285" y="651" fill="#09245A" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900">Episodio 01 - Notícias sobre o dia a dia da novacap</text>
+    <path d="M865 635h220" stroke="#A8C9FF" stroke-width="4" stroke-dasharray="3 9" stroke-linecap="round"/>
+    <text x="1120" y="641" fill="#31507F" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700">00:00:34</text>
+  </g>
+</svg>
