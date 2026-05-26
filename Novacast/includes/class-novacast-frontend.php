@@ -53,45 +53,55 @@ class Novacast_Frontend {
 
         ob_start();
         ?>
-        <div class="novacast-player-list" data-novacast-player-list>
-            <?php foreach ( $episodes as $episode ) : ?>
-                <?php
-                $source                 = get_post_meta( $episode->ID, Novacast_Admin::META_SOURCE, true );
-                $source                 = $source ? $source : 'audio';
-                $audio_url              = get_post_meta( $episode->ID, Novacast_Admin::META_AUDIO_URL, true );
-                $youtube_url            = get_post_meta( $episode->ID, Novacast_Admin::META_YOUTUBE_URL, true );
-                $spotify_url            = get_post_meta( $episode->ID, Novacast_Admin::META_SPOTIFY_URL, true );
-                $external_thumbnail_url = get_post_meta( $episode->ID, Novacast_Admin::META_EXTERNAL_THUMBNAIL_URL, true );
-                $duration               = get_post_meta( $episode->ID, Novacast_Admin::META_DURATION, true );
-                $cover                  = get_the_post_thumbnail_url( $episode->ID, 'medium' );
-                $cover                  = $cover ? $cover : $external_thumbnail_url;
-                $player_markup          = self::render_episode_player( $source, $audio_url, $youtube_url, $spotify_url );
+        <section class="novacast-section" aria-label="<?php echo esc_attr__( 'Novacast - O Podcast da Novacap', 'novacast' ); ?>">
+            <div class="novacast-section-header">
+                <span class="novacast-section-kicker"><?php esc_html_e( 'Podcast Oficial', 'novacast' ); ?></span>
+                <h2 class="novacast-section-title"><?php esc_html_e( 'Novacast - O Podcast da Novacap', 'novacast' ); ?></h2>
+                <p class="novacast-section-description">
+                    <?php esc_html_e( 'Fique atualizado com as notícias diárias sobre o que acontece em nossa cidade.', 'novacast' ); ?>
+                </p>
+            </div>
 
-                if ( empty( $player_markup ) ) {
-                    continue;
-                }
-                ?>
-                <article class="novacast-player-card novacast-source-<?php echo esc_attr( $source ); ?>">
-                    <?php if ( $cover ) : ?>
-                        <img class="novacast-player-cover" src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( get_the_title( $episode ) ); ?>">
-                    <?php endif; ?>
+            <div class="novacast-player-list" data-novacast-player-list>
+                <?php foreach ( $episodes as $episode ) : ?>
+                    <?php
+                    $source                 = get_post_meta( $episode->ID, Novacast_Admin::META_SOURCE, true );
+                    $source                 = $source ? $source : 'audio';
+                    $audio_url              = get_post_meta( $episode->ID, Novacast_Admin::META_AUDIO_URL, true );
+                    $youtube_url            = get_post_meta( $episode->ID, Novacast_Admin::META_YOUTUBE_URL, true );
+                    $spotify_url            = get_post_meta( $episode->ID, Novacast_Admin::META_SPOTIFY_URL, true );
+                    $external_thumbnail_url = get_post_meta( $episode->ID, Novacast_Admin::META_EXTERNAL_THUMBNAIL_URL, true );
+                    $duration               = get_post_meta( $episode->ID, Novacast_Admin::META_DURATION, true );
+                    $cover                  = get_the_post_thumbnail_url( $episode->ID, 'medium' );
+                    $cover                  = $cover ? $cover : $external_thumbnail_url;
+                    $player_markup          = self::render_episode_player( $source, $audio_url, $youtube_url, $spotify_url );
 
-                    <div class="novacast-player-content">
-                        <h3 class="novacast-player-title"><?php echo esc_html( get_the_title( $episode ) ); ?></h3>
-
-                        <?php if ( $duration ) : ?>
-                            <p class="novacast-player-duration"><?php echo esc_html( $duration ); ?></p>
+                    if ( empty( $player_markup ) ) {
+                        continue;
+                    }
+                    ?>
+                    <article class="novacast-player-card novacast-source-<?php echo esc_attr( $source ); ?>">
+                        <?php if ( $cover ) : ?>
+                            <img class="novacast-player-cover" src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( get_the_title( $episode ) ); ?>">
                         <?php endif; ?>
 
-                        <div class="novacast-player-description">
-                            <?php echo wp_kses_post( wpautop( get_the_excerpt( $episode ) ?: wp_trim_words( wp_strip_all_tags( $episode->post_content ), 28 ) ) ); ?>
-                        </div>
+                        <div class="novacast-player-content">
+                            <h3 class="novacast-player-title"><?php echo esc_html( get_the_title( $episode ) ); ?></h3>
 
-                        <?php echo $player_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        </div>
+                            <?php if ( $duration ) : ?>
+                                <p class="novacast-player-duration"><?php echo esc_html( $duration ); ?></p>
+                            <?php endif; ?>
+
+                            <div class="novacast-player-description">
+                                <?php echo wp_kses_post( wpautop( get_the_excerpt( $episode ) ?: wp_trim_words( wp_strip_all_tags( $episode->post_content ), 28 ) ) ); ?>
+                            </div>
+
+                            <?php echo $player_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </section>
         <?php
         return ob_get_clean();
     }
