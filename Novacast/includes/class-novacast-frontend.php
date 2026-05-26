@@ -60,6 +60,10 @@ class Novacast_Frontend {
         ?>
         <section class="novacast-section novacast-theme-<?php echo esc_attr( $theme ); ?>" data-novacast-section aria-label="<?php echo esc_attr__( 'Novacast - O Podcast da Novacap', 'novacast' ); ?>">
             <div class="novacast-section-hero">
+                <div class="novacast-brand-icon" aria-hidden="true">
+                    <span>🎙</span>
+                </div>
+
                 <div class="novacast-section-header">
                     <span class="novacast-section-kicker"><?php esc_html_e( 'Podcast Oficial', 'novacast' ); ?></span>
                     <h2 class="novacast-section-title"><?php esc_html_e( 'Novacast - O Podcast da Novacap', 'novacast' ); ?></h2>
@@ -70,8 +74,8 @@ class Novacast_Frontend {
 
                 <div class="novacast-section-actions">
                     <button class="novacast-theme-toggle" type="button" data-novacast-theme-toggle aria-label="<?php echo esc_attr__( 'Alternar tema claro e escuro', 'novacast' ); ?>">
-                        <span class="novacast-theme-toggle-icon" aria-hidden="true">◐</span>
-                        <span data-novacast-theme-label><?php esc_html_e( 'Tema escuro', 'novacast' ); ?></span>
+                        <span class="novacast-theme-icon novacast-theme-icon-sun" aria-hidden="true">☀</span>
+                        <span class="novacast-theme-icon novacast-theme-icon-moon" aria-hidden="true">☾</span>
                     </button>
                 </div>
             </div>
@@ -124,6 +128,7 @@ class Novacast_Frontend {
             <?php if ( $cover ) : ?>
                 <div class="novacast-player-cover-wrap">
                     <img class="novacast-player-cover" src="<?php echo esc_url( $cover ); ?>" alt="<?php echo esc_attr( get_the_title( $episode ) ); ?>">
+                    <span class="novacast-cover-wave" aria-hidden="true"></span>
                 </div>
             <?php endif; ?>
 
@@ -149,8 +154,6 @@ class Novacast_Frontend {
                 </div>
 
                 <div class="novacast-player-footer">
-                    <span class="novacast-listen-now"><?php esc_html_e( 'Ouça agora', 'novacast' ); ?></span>
-
                     <div class="novacast-player-control">
                         <?php echo $player_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </div>
@@ -195,9 +198,10 @@ class Novacast_Frontend {
         }
 
         return sprintf(
-            '<audio class="novacast-audio" controls preload="metadata"><source src="%s">%s</audio>',
+            '<div class="novacast-custom-audio" data-novacast-audio-player><audio class="novacast-audio" preload="metadata" src="%1$s"></audio><button class="novacast-audio-play" type="button" data-novacast-play aria-label="%2$s"><span class="novacast-play-icon" aria-hidden="true">▶</span><span class="novacast-pause-icon" aria-hidden="true">Ⅱ</span></button><span class="novacast-audio-time" data-novacast-current>0:00</span><div class="novacast-progress-wrap" data-novacast-seek><span class="novacast-progress-track"><span class="novacast-progress-fill" data-novacast-progress></span></span></div><span class="novacast-audio-time" data-novacast-duration>0:00</span><button class="novacast-audio-muted" type="button" data-novacast-mute aria-label="%3$s">♪</button></div>',
             esc_url( $audio_url ),
-            esc_html__( 'Seu navegador não suporta reprodução de áudio.', 'novacast' )
+            esc_attr__( 'Reproduzir ou pausar episódio', 'novacast' ),
+            esc_attr__( 'Ativar ou desativar som', 'novacast' )
         );
     }
 
