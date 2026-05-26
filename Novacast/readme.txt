@@ -1,10 +1,10 @@
 === Novacast ===
 Contributors: henrkecrz
-Tags: podcast, audio, player, shortcode
+Tags: podcast, audio, player, shortcode, youtube, spotify
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,16 +12,25 @@ Gerencie episódios de podcast no WordPress e exiba players no frontend.
 
 == Description ==
 
-Novacast cria um painel de episódios de podcast dentro do WordPress. Cada episódio pode ter título, descrição, capa, URL de áudio, duração e status de exibição.
+Novacast cria um painel de episódios de podcast dentro do WordPress. Cada episódio pode ter título, descrição, capa, URL de áudio, duração, fonte de reprodução e status de exibição.
 
-O plugin também oferece o shortcode [novacast_player] para exibir episódios no frontend com um player de áudio responsivo.
+O plugin oferece o shortcode [novacast_player] para exibir episódios no frontend com player responsivo.
+
+Fontes de reprodução disponíveis:
+
+* Áudio próprio via player HTML5.
+* YouTube via embed oficial.
+* Spotify via embed oficial.
+
+A sincronização com YouTube e Spotify importa metadados públicos e cria/atualiza episódios no WordPress. O plugin não baixa áudio dessas plataformas.
 
 == Installation ==
 
 1. Envie a pasta Novacast para wp-content/plugins/.
 2. Ative o plugin no painel do WordPress.
-3. Acesse Novacast > Adicionar novo para cadastrar episódios.
-4. Use o shortcode [novacast_player] em uma página ou post.
+3. Acesse Novacast > Adicionar novo para cadastrar episódios manualmente.
+4. Acesse Novacast > Sincronização para configurar YouTube e Spotify.
+5. Use o shortcode [novacast_player] em uma página ou post.
 
 == Shortcodes ==
 
@@ -37,7 +46,27 @@ Exibir um episódio específico:
 
 [novacast_player id="123"]
 
+== YouTube ==
+
+Para sincronizar YouTube, informe uma YouTube API Key e o ID de uma playlist pública em Novacast > Sincronização.
+
+Os episódios importados usam o embed oficial do YouTube no frontend.
+
+== Spotify ==
+
+Para sincronizar Spotify, informe Client ID, Client Secret e o ID ou URL de um show em Novacast > Sincronização.
+
+Os episódios importados usam o embed oficial do Spotify no frontend.
+
 == Changelog ==
+
+= 0.2.0 =
+* Adicionada seleção de fonte de reprodução por episódio.
+* Adicionado suporte a YouTube Embed no frontend.
+* Adicionado suporte a Spotify Embed no frontend.
+* Adicionada tela Novacast > Sincronização.
+* Adicionada sincronização manual com playlist do YouTube.
+* Adicionada sincronização manual com show do Spotify.
 
 = 0.1.0 =
 * Estrutura inicial do plugin.
