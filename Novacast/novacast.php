@@ -3,7 +3,7 @@
  * Plugin Name: Novacast
  * Plugin URI: https://github.com/henrkecrz/novacast
  * Description: Gerencie episódios de podcast e exiba players no frontend com shortcodes.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Author: Henrique Vasconcelos
  * Text Domain: novacast
  * Domain Path: /languages
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'NOVACAST_VERSION', '0.1.0' );
+define( 'NOVACAST_VERSION', '0.2.0' );
 define( 'NOVACAST_PLUGIN_FILE', __FILE__ );
 define( 'NOVACAST_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NOVACAST_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -23,6 +23,7 @@ define( 'NOVACAST_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 require_once NOVACAST_PLUGIN_DIR . 'includes/class-novacast-post-type.php';
 require_once NOVACAST_PLUGIN_DIR . 'includes/class-novacast-admin.php';
 require_once NOVACAST_PLUGIN_DIR . 'includes/class-novacast-frontend.php';
+require_once NOVACAST_PLUGIN_DIR . 'includes/class-novacast-integrations.php';
 
 /**
  * Inicializa o plugin.
@@ -31,6 +32,7 @@ function novacast_bootstrap() {
     Novacast_Post_Type::init();
     Novacast_Admin::init();
     Novacast_Frontend::init();
+    Novacast_Integrations::init();
 }
 add_action( 'plugins_loaded', 'novacast_bootstrap' );
 
