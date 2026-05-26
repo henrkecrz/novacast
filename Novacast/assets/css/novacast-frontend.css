@@ -183,17 +183,18 @@
 
 .novacast-featured-card {
     margin-top: 1.2rem;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 340px 1fr;
     padding: 1.1rem;
-    border-radius: 30px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(247, 251, 255, 0.58));
+    border-radius: 32px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(247, 251, 255, 0.6));
     border: 1px solid rgba(255, 255, 255, 0.72);
-    box-shadow: 0 24px 54px rgba(15, 54, 108, 0.12);
+    box-shadow: 0 26px 58px rgba(15, 54, 108, 0.14);
     backdrop-filter: blur(18px);
 }
 
 .novacast-theme-dark .novacast-featured-card,
-.novacast-theme-dark .novacast-player-card {
+.novacast-theme-dark .novacast-player-card,
+.novacast-theme-dark .novacast-episode-row {
     background: linear-gradient(135deg, rgba(20, 48, 92, 0.72), rgba(9, 28, 56, 0.64));
     border-color: rgba(255, 255, 255, 0.13);
     color: #eaf2ff;
@@ -253,12 +254,6 @@
     color: #93c5fd;
 }
 
-.novacast-player-list {
-    display: grid;
-    gap: 0.72rem;
-    margin-top: 0.9rem;
-}
-
 .novacast-player-card {
     position: relative;
     display: grid;
@@ -275,7 +270,8 @@
     backdrop-filter: blur(16px);
 }
 
-.novacast-player-card:hover {
+.novacast-player-card:hover,
+.novacast-episode-row:hover {
     transform: translateY(-2px);
     box-shadow: 0 16px 34px rgba(15, 54, 108, 0.12);
 }
@@ -283,7 +279,7 @@
 .novacast-player-cover-wrap {
     position: relative;
     padding: 0;
-    border-radius: 20px;
+    border-radius: 22px;
     background: transparent;
     box-shadow: none;
     overflow: hidden;
@@ -294,19 +290,43 @@
     width: 100%;
     height: 86px;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: 22px;
     background: #dbeafe;
     box-shadow: 0 12px 22px rgba(15, 54, 108, 0.12);
 }
 
 .novacast-featured-card .novacast-player-cover {
-    height: 260px;
-    border-radius: 26px;
+    height: 275px;
+    border-radius: 28px;
+}
+
+.novacast-cover-gradient {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(180deg, transparent 35%, rgba(3, 13, 35, 0.42));
+    pointer-events: none;
+}
+
+.novacast-cover-play {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.82);
+    color: #0b57d0;
+    box-shadow: 0 16px 30px rgba(3, 13, 35, 0.22);
+    backdrop-filter: blur(10px);
 }
 
 .novacast-cover-wave {
     position: absolute;
-    left: 10%;
+    left: 18%;
     right: 10%;
     top: 50%;
     height: 2px;
@@ -319,7 +339,7 @@
 .novacast-player-content {
     display: flex;
     flex-direction: column;
-    gap: 0.48rem;
+    gap: 0.56rem;
     min-width: 0;
 }
 
@@ -330,7 +350,6 @@
     gap: 0.42rem;
 }
 
-.novacast-play-mini,
 .novacast-episode-number,
 .novacast-player-badge,
 .novacast-player-date,
@@ -339,22 +358,6 @@
     align-items: center;
     border-radius: 999px;
     font-weight: 850;
-}
-
-.novacast-play-mini {
-    justify-content: center;
-    width: 1.7rem;
-    height: 1.7rem;
-    background: linear-gradient(135deg, #0c4fc1 0%, #1d74f5 100%);
-    color: #ffffff;
-    font-size: 0.62rem;
-    box-shadow: 0 8px 16px rgba(29, 116, 245, 0.22);
-}
-
-.novacast-episode-number,
-.novacast-player-badge,
-.novacast-player-date,
-.novacast-player-duration {
     padding: 0.34rem 0.62rem;
     background: rgba(232, 241, 255, 0.86);
     color: #0b57d0;
@@ -371,7 +374,8 @@
 .novacast-theme-dark .novacast-episode-number,
 .novacast-theme-dark .novacast-player-badge,
 .novacast-theme-dark .novacast-player-date,
-.novacast-theme-dark .novacast-player-duration {
+.novacast-theme-dark .novacast-player-duration,
+.novacast-theme-dark .novacast-row-meta span {
     background: rgba(255, 255, 255, 0.1);
     color: #dbeafe;
 }
@@ -398,10 +402,11 @@
 }
 
 .novacast-featured-card .novacast-player-title {
-    font-size: 1.9rem;
+    font-size: clamp(1.8rem, 3vw, 2.45rem);
 }
 
-.novacast-theme-dark .novacast-player-title {
+.novacast-theme-dark .novacast-player-title,
+.novacast-theme-dark .novacast-row-main h4 {
     color: #ffffff;
 }
 
@@ -426,8 +431,8 @@
 }
 
 .novacast-player-control {
-    padding: 0.58rem;
-    border-radius: 22px;
+    padding: 0.75rem;
+    border-radius: 24px;
     background: rgba(255, 255, 255, 0.54);
     border: 1px solid rgba(219, 234, 254, 0.76);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 10px 24px rgba(10, 38, 83, 0.06);
@@ -441,8 +446,8 @@
 
 .novacast-custom-audio {
     display: grid;
-    grid-template-columns: auto auto minmax(80px, 1fr) auto auto;
-    gap: 0.7rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.9rem;
     align-items: center;
     width: 100%;
 }
@@ -451,48 +456,52 @@
     display: none;
 }
 
+.novacast-audio-primary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: center;
+}
+
 .novacast-audio-play,
-.novacast-audio-muted {
+.novacast-audio-muted,
+.novacast-audio-mini {
     border: 0;
     cursor: pointer;
-    color: #ffffff;
-    background: linear-gradient(135deg, #0c4fc1 0%, #1d74f5 100%);
-    box-shadow: 0 12px 22px rgba(29, 116, 245, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.novacast-audio-play:hover,
+.novacast-audio-muted:hover,
+.novacast-audio-mini:hover {
+    transform: translateY(-1px);
 }
 
 .novacast-audio-play {
-    width: 3.05rem;
-    height: 3.05rem;
+    width: 3.45rem;
+    height: 3.45rem;
     border-radius: 999px;
-    font-size: 0.9rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0c4fc1 0%, #1d74f5 100%);
+    box-shadow: 0 14px 26px rgba(29, 116, 245, 0.26);
+    font-size: 1rem;
 }
 
-.novacast-audio-muted {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 999px;
-    font-weight: 900;
+.novacast-audio-timeline {
+    display: grid;
+    gap: 0.48rem;
 }
 
-.novacast-pause-icon,
-.novacast-custom-audio.is-playing .novacast-play-icon {
-    display: none;
-}
-
-.novacast-custom-audio.is-playing .novacast-pause-icon {
-    display: inline;
-}
-
-.novacast-custom-audio.is-muted .novacast-audio-muted {
-    opacity: 0.55;
+.novacast-audio-times {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .novacast-audio-time {
     color: #0b57d0;
     font-size: 0.84rem;
     font-weight: 850;
-    min-width: 2.6rem;
-    text-align: center;
 }
 
 .novacast-theme-dark .novacast-audio-time {
@@ -502,14 +511,14 @@
 .novacast-progress-wrap {
     display: flex;
     align-items: center;
-    height: 1.3rem;
+    height: 1rem;
     cursor: pointer;
 }
 
 .novacast-progress-track {
     display: block;
     width: 100%;
-    height: 0.45rem;
+    height: 0.48rem;
     border-radius: 999px;
     background: rgba(174, 196, 230, 0.42);
     overflow: hidden;
@@ -522,6 +531,54 @@
     border-radius: inherit;
     background: linear-gradient(90deg, #0c4fc1, #1d74f5);
     box-shadow: 0 0 18px rgba(29, 116, 245, 0.38);
+}
+
+.novacast-waveform {
+    display: flex;
+    align-items: center;
+    gap: 0.18rem;
+    height: 2.1rem;
+    opacity: 0.95;
+}
+
+.novacast-waveform span {
+    width: 0.18rem;
+    min-height: 0.35rem;
+    border-radius: 999px;
+    background: rgba(142, 170, 214, 0.42);
+}
+
+.novacast-waveform span.is-active {
+    background: linear-gradient(180deg, #1d74f5, #0c4fc1);
+    box-shadow: 0 0 12px rgba(29, 116, 245, 0.32);
+}
+
+.novacast-audio-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.42rem;
+}
+
+.novacast-audio-mini,
+.novacast-audio-muted {
+    height: 2.2rem;
+    min-width: 2.2rem;
+    padding: 0 0.62rem;
+    border-radius: 999px;
+    color: #0b57d0;
+    background: rgba(232, 241, 255, 0.9);
+    font-size: 0.78rem;
+    font-weight: 900;
+}
+
+.novacast-audio-muted {
+    color: #ffffff;
+    background: linear-gradient(135deg, #0c4fc1 0%, #1d74f5 100%);
+    box-shadow: 0 12px 22px rgba(29, 116, 245, 0.2);
+}
+
+.novacast-custom-audio.is-muted .novacast-audio-muted {
+    opacity: 0.58;
 }
 
 .novacast-embed {
@@ -542,6 +599,105 @@
 .novacast-youtube iframe { height: 100%; }
 .novacast-spotify iframe { min-height: 152px; }
 
+.novacast-episode-rows {
+    display: grid;
+    gap: 0.72rem;
+}
+
+.novacast-episode-row {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.72rem;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.68);
+    box-shadow: 0 12px 26px rgba(15, 54, 108, 0.08);
+    backdrop-filter: blur(16px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.novacast-row-cover {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.novacast-row-cover img {
+    display: block;
+    width: 96px;
+    height: 64px;
+    object-fit: cover;
+}
+
+.novacast-row-cover span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: rgba(5, 18, 43, 0.18);
+    font-size: 0.8rem;
+}
+
+.novacast-row-main {
+    min-width: 0;
+}
+
+.novacast-row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.28rem;
+}
+
+.novacast-row-meta span {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.52rem;
+    border-radius: 999px;
+    background: rgba(232, 241, 255, 0.86);
+    color: #0b57d0;
+    font-size: 0.68rem;
+    font-weight: 850;
+}
+
+.novacast-row-main h4 {
+    margin: 0;
+    color: #09245a;
+    font-size: 1rem;
+    line-height: 1.25;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+.novacast-row-wave {
+    display: flex;
+    align-items: center;
+    gap: 0.18rem;
+    margin-top: 0.42rem;
+    height: 1.6rem;
+}
+
+.novacast-row-wave span {
+    width: 0.16rem;
+    border-radius: 999px;
+    background: rgba(29, 116, 245, 0.36);
+}
+
+.novacast-row-duration {
+    color: #4e6388;
+    font-size: 0.78rem;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+.novacast-theme-dark .novacast-row-duration {
+    color: #dbeafe;
+}
+
 .novacast-empty {
     padding: 1rem 1.2rem;
     border-radius: 16px;
@@ -550,9 +706,19 @@
     color: #42526b;
 }
 
+@media (max-width: 980px) {
+    .novacast-featured-card {
+        grid-template-columns: 1fr;
+    }
+
+    .novacast-featured-card .novacast-player-cover {
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+}
+
 @media (max-width: 900px) {
     .novacast-section-hero,
-    .novacast-featured-card,
     .novacast-player-card {
         grid-template-columns: 1fr;
     }
@@ -576,18 +742,19 @@
         font-size: 1.75rem;
     }
 
-    .novacast-player-cover,
-    .novacast-featured-card .novacast-player-cover {
+    .novacast-custom-audio,
+    .novacast-audio-primary,
+    .novacast-episode-row {
+        grid-template-columns: 1fr;
+    }
+
+    .novacast-audio-actions {
+        justify-content: flex-start;
+    }
+
+    .novacast-row-cover img {
+        width: 100%;
         height: auto;
-        aspect-ratio: 1 / 1;
-        border-radius: 18px;
-    }
-
-    .novacast-custom-audio {
-        grid-template-columns: auto auto 1fr;
-    }
-
-    .novacast-audio-muted {
-        display: none;
+        aspect-ratio: 16 / 9;
     }
 }
