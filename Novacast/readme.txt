@@ -4,7 +4,7 @@ Tags: podcast, audio, player, shortcode, youtube, spotify, react
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.4.1
+Stable tag: 0.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,14 @@ Os episódios importados usam o embed oficial do YouTube no frontend.
 Para sincronizar Spotify, informe Client ID, Client Secret e o ID ou URL de um show em Novacast > Sincronização.
 
 Os episódios importados usam o embed oficial do Spotify no frontend.
+
+= 0.5.0 =
+* Glassmorphism aprimorado: fundos mais profundos, blur intensificado e sombras refinadas.
+* Adicionados orbes de fundo animados com gradientes azul/violeta.
+* CSS refatorado com variáveis de design system para consistência visual.
+* Player React substituiu emoji por ícone SVG para maior fidelidade visual.
+* Painel administrativo recebeu cantos arredondados e backdrop-filter sutil.
+* Novos tokens CSS: --novacast-glass-bg, --novacast-glass-border, --novacast-glass-blur, etc.
 
 == Changelog ==
 

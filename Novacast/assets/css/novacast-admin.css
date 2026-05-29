@@ -3,6 +3,15 @@
     color: #0f172a;
 }
 
+.novacast-admin-panel input[type="url"],
+.novacast-admin-panel input[type="text"] {
+    border-radius: 10px !important;
+}
+
+.novacast-admin-panel .button {
+    border-radius: 999px !important;
+}
+
 .novacast-admin-hero {
     display: flex;
     justify-content: space-between;
@@ -13,6 +22,7 @@
     background: linear-gradient(135deg, #0b3f91 0%, #0e56c5 55%, #1d74f5 100%);
     color: #ffffff;
     box-shadow: 0 14px 30px rgba(29, 116, 245, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .novacast-admin-hero h3 {
@@ -74,25 +84,27 @@
     gap: 0.25rem;
     min-height: 112px;
     padding: 1rem;
-    border: 1px solid #dbeafe;
-    border-radius: 16px;
-    background: #ffffff;
+    border: 1px solid rgba(219, 234, 254, 0.70);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.80);
     color: #1e293b;
     text-align: left;
     cursor: pointer;
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
     transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    backdrop-filter: blur(8px);
 }
 
 .novacast-source-card:hover,
 .novacast-source-card.is-active {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     border-color: #1d74f5;
-    box-shadow: 0 12px 24px rgba(29, 116, 245, 0.12);
+    box-shadow: 0 16px 32px rgba(29, 116, 245, 0.16);
 }
 
 .novacast-source-card.is-active {
-    background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+    background: linear-gradient(180deg, rgba(248, 251, 255, 0.95) 0%, rgba(238, 245, 255, 0.90) 100%);
+    border-color: #1d74f5;
 }
 
 .novacast-source-icon {
@@ -126,10 +138,11 @@
 
 .novacast-admin-card {
     padding: 1rem;
-    border: 1px solid #dbeafe;
-    border-radius: 16px;
-    background: #ffffff;
+    border: 1px solid rgba(219, 234, 254, 0.70);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.85);
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    backdrop-filter: blur(6px);
 }
 
 .novacast-admin-card label {

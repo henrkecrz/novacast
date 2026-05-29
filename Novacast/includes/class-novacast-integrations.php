@@ -421,7 +421,7 @@ class Novacast_Integrations {
                 array(
                     'post_type'        => Novacast_Post_Type::POST_TYPE,
                     'page'             => 'novacast-sync',
-                    'novacast_message' => rawurlencode( $message ),
+                    'novacast_message' => $message,
                 ),
                 admin_url( 'edit.php' )
             )

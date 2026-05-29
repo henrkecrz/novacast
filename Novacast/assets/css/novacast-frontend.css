@@ -1,21 +1,104 @@
+:root {
+    --novacast-glass-bg: rgba(255,255,255,0.28);
+    --novacast-glass-border: rgba(255,255,255,0.55);
+    --novacast-glass-shadow: rgba(10,38,83,0.10);
+    --novacast-glass-shadow-lg: rgba(10,38,83,0.18);
+    --novacast-glass-highlight: rgba(255,255,255,0.65);
+    --novacast-glass-blur: 28px;
+    --novacast-glass-blur-deep: 42px;
+}
+
 .novacast-section {
     max-width: 1180px;
     margin: 2rem auto;
     padding: 1.5rem;
     border-radius: 34px;
     color: #09245a;
-    background:
-        radial-gradient(circle at 8% 0%, rgba(255, 255, 255, 0.98) 0%, rgba(244, 248, 255, 0.94) 38%, rgba(232, 241, 255, 0.9) 100%);
-    border: 1px solid rgba(219, 234, 254, 0.9);
-    box-shadow: 0 28px 70px rgba(10, 38, 83, 0.18);
-    backdrop-filter: blur(18px);
+    background: var(--novacast-glass-bg);
+    border: 1px solid var(--novacast-glass-border);
+    box-shadow:
+        inset 0 1px 0 var(--novacast-glass-highlight),
+        0 28px 70px var(--novacast-glass-shadow-lg);
+    backdrop-filter: blur(var(--novacast-glass-blur)) saturate(1.08);
+    -webkit-backdrop-filter: blur(var(--novacast-glass-blur)) saturate(1.08);
+    position: relative;
+    overflow: hidden;
+}
+.novacast-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(29, 116, 245, 0.15), transparent);
+    pointer-events: none;
+}
+
+.novacast-backdrop {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+.novacast-backdrop-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.32;
+    will-change: transform;
+}
+.novacast-backdrop-orb:nth-child(1) {
+    width: 55vw; height: 55vw;
+    top: -15%; left: -10%;
+    background: radial-gradient(circle, oklch(68% 0.16 255 / 0.40), transparent 70%);
+    animation: novacastOrbFloat1 20s ease-in-out infinite;
+}
+.novacast-backdrop-orb:nth-child(2) {
+    width: 45vw; height: 45vw;
+    bottom: -10%; right: -8%;
+    background: radial-gradient(circle, oklch(62% 0.12 230 / 0.28), transparent 70%);
+    animation: novacastOrbFloat2 25s ease-in-out infinite;
+}
+.novacast-backdrop-orb:nth-child(3) {
+    width: 35vw; height: 35vw;
+    top: 40%; left: 50%;
+    background: radial-gradient(circle, oklch(72% 0.10 280 / 0.18), transparent 70%);
+    animation: novacastOrbFloat3 18s ease-in-out infinite;
+}
+@keyframes novacastOrbFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(8%, 6%) scale(1.08); }
+    66% { transform: translate(-4%, -3%) scale(0.95); }
+}
+@keyframes novacastOrbFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-6%, -8%) scale(1.05); }
+    66% { transform: translate(5%, 4%) scale(0.92); }
+}
+@keyframes novacastOrbFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(10%, -5%) scale(1.1); }
 }
 
 .novacast-theme-dark {
     color: #eaf2ff;
-    background:
-        radial-gradient(circle at 8% 0%, rgba(34, 80, 150, 0.92) 0%, rgba(7, 22, 47, 0.96) 52%, rgba(4, 12, 27, 0.98) 100%);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(10,22,46,0.50);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 28px 70px rgba(0,0,0,0.38);
+}
+
+.novacast-theme-dark .novacast-backdrop-orb:nth-child(1) {
+    background: radial-gradient(circle, oklch(48% 0.18 260 / 0.35), transparent 70%);
+}
+.novacast-theme-dark .novacast-backdrop-orb:nth-child(2) {
+    background: radial-gradient(circle, oklch(42% 0.14 235 / 0.25), transparent 70%);
+}
+.novacast-theme-dark .novacast-backdrop-orb:nth-child(3) {
+    background: radial-gradient(circle, oklch(50% 0.10 285 / 0.18), transparent 70%);
 }
 
 .novacast-section-hero {
@@ -27,10 +110,13 @@
     border-radius: 28px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(235, 244, 255, 0.62));
-    border: 1px solid rgba(255, 255, 255, 0.72);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 16px 36px rgba(29, 78, 216, 0.08);
-    backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.60);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 16px 36px var(--novacast-glass-shadow);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
 }
 
 .novacast-section-hero::before {
@@ -45,8 +131,11 @@
 }
 
 .novacast-theme-dark .novacast-section-hero {
-    background: linear-gradient(135deg, rgba(23, 53, 101, 0.78), rgba(7, 22, 47, 0.58));
-    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.10);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 16px 36px rgba(0,0,0,0.28);
 }
 
 .novacast-brand-icon {
@@ -56,11 +145,14 @@
     width: 3.6rem;
     height: 3.6rem;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.52);
-    border: 1px solid rgba(29, 116, 245, 0.18);
+    background: rgba(255, 255, 255, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.40);
     color: #0e56c5;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 14px 24px rgba(29, 116, 245, 0.14);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.70),
+        0 14px 24px var(--novacast-glass-shadow);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     font-size: 1.35rem;
     position: relative;
     z-index: 2;
@@ -84,16 +176,18 @@
     margin-bottom: 0.45rem;
     padding: 0.35rem 0.7rem;
     border-radius: 999px;
-    background: rgba(232, 241, 255, 0.84);
+    background: rgba(255, 255, 255, 0.40);
     color: #0b57d0;
     font-size: 0.68rem;
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .novacast-theme-dark .novacast-section-kicker {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     color: #dbeafe;
 }
 
@@ -113,10 +207,10 @@
 .novacast-section-description {
     max-width: 760px;
     margin: 0;
-    color: #31507f;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.55;
+    color: #27466f;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.6;
 }
 
 .novacast-theme-dark .novacast-section-description {
@@ -131,38 +225,23 @@
 
 .novacast-theme-toggle {
     display: inline-grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto 1fr;
     align-items: center;
-    gap: 0.2rem;
-    width: 5.2rem;
-    height: 2.45rem;
-    border: 1px solid rgba(29, 116, 245, 0.18);
+    gap: 0.45rem;
+    min-width: 10.5rem;
+    height: 2.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.45);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.62);
+    background: rgba(255, 255, 255, 0.4);
     color: #0b57d0;
     cursor: pointer;
-    padding: 0.18rem;
-    box-shadow: 0 12px 24px rgba(10, 38, 83, 0.1);
+    padding: 0.2rem 0.95rem 0.2rem 0.7rem;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.70),
+        0 12px 24px var(--novacast-glass-shadow);
     backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     position: relative;
-}
-
-.novacast-theme-toggle::before {
-    content: "";
-    position: absolute;
-    top: 0.22rem;
-    left: 0.22rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #ffffff, #dbeafe);
-    box-shadow: 0 8px 16px rgba(10, 38, 83, 0.14);
-    transition: transform 0.24s ease;
-}
-
-.novacast-theme-dark .novacast-theme-toggle::before {
-    transform: translateX(2.7rem);
-    background: linear-gradient(135deg, #1d74f5, #0b3f91);
 }
 
 .novacast-theme-icon {
@@ -171,33 +250,73 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1;
+}
+
+.novacast-theme-label {
+    position: relative;
+    z-index: 2;
+    font-size: 0.92rem;
+    font-weight: 800;
+    white-space: nowrap;
 }
 
 .novacast-theme-dark .novacast-theme-toggle {
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 12px 24px rgba(0,0,0,0.28);
 }
 
 .novacast-featured-card {
     margin-top: 1.2rem;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: minmax(200px, 340px) 1fr;
     padding: 1.1rem;
     border-radius: 32px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(247, 251, 255, 0.6));
-    border: 1px solid rgba(255, 255, 255, 0.72);
-    box-shadow: 0 26px 58px rgba(15, 54, 108, 0.14);
-    backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.75),
+        0 26px 58px var(--novacast-glass-shadow-lg);
+    backdrop-filter: blur(var(--novacast-glass-blur));
+    -webkit-backdrop-filter: blur(var(--novacast-glass-blur));
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.novacast-featured-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.80),
+        0 32px 72px var(--novacast-glass-shadow-lg);
 }
 
 .novacast-theme-dark .novacast-featured-card,
 .novacast-theme-dark .novacast-player-card,
 .novacast-theme-dark .novacast-episode-row {
-    background: linear-gradient(135deg, rgba(20, 48, 92, 0.72), rgba(9, 28, 56, 0.64));
-    border-color: rgba(255, 255, 255, 0.13);
+    background: rgba(10,22,46,0.55);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 26px 58px rgba(0,0,0,0.35);
     color: #eaf2ff;
+}
+.novacast-theme-dark .novacast-vinyl-ring {
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,0.04),
+        inset 0 0 0 2px rgba(255,255,255,0.04),
+        inset 0 0 0 34px rgba(255,255,255,0.03),
+        inset 0 0 0 36px rgba(255,255,255,0.01);
+}
+.novacast-theme-dark .novacast-section::after {
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.12), transparent);
+}
+.novacast-theme-dark .novacast-featured-card.is-current .novacast-cover-wave {
+    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.08), transparent 35%, rgba(255,255,255,0.02) 70%, transparent);
+}
+.novacast-theme-dark .novacast-featured-card.is-current .novacast-player-cover {
+    filter: brightness(0.6) saturate(1.1);
 }
 
 .novacast-list-header {
@@ -239,13 +358,13 @@
     align-items: center;
     gap: 0.35rem;
     color: #0b57d0;
-    font-size: 0.84rem;
+    font-size: 0.95rem;
     font-weight: 900;
     text-decoration: none;
 }
 
 .novacast-view-all::after {
-    content: "›";
+    content: ">";
     font-size: 1.35rem;
     line-height: 0.7;
 }
@@ -262,18 +381,33 @@
     align-items: center;
     padding: 0.72rem;
     border-radius: 22px;
-    background: rgba(255, 255, 255, 0.66);
-    border: 1px solid rgba(255, 255, 255, 0.68);
-    box-shadow: 0 12px 26px rgba(15, 54, 108, 0.08);
+    background: rgba(255, 255, 255, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.50);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.70),
+        0 12px 26px var(--novacast-glass-shadow);
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .novacast-player-card:hover,
 .novacast-episode-row:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 34px rgba(15, 54, 108, 0.12);
+    transform: translateY(-3px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.80),
+        0 24px 56px var(--novacast-glass-shadow-lg);
+}
+.novacast-player-card:hover .novacast-player-cover {
+    transform: scale(1.02);
+}
+.novacast-player-card .novacast-player-cover,
+.novacast-episode-row .novacast-row-cover img {
+    transition: transform 0.4s ease;
+}
+.novacast-episode-row:hover .novacast-row-cover img {
+    transform: scale(1.04);
 }
 
 .novacast-player-cover-wrap {
@@ -296,8 +430,14 @@
 }
 
 .novacast-featured-card .novacast-player-cover {
-    height: 275px;
+    height: auto;
+    aspect-ratio: 1 / 1;
     border-radius: 28px;
+    transition: border-radius 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+}
+.novacast-featured-card.is-current .novacast-player-cover {
+    border-radius: 18px;
+    filter: brightness(0.7) saturate(1.15);
 }
 
 .novacast-cover-gradient {
@@ -318,10 +458,12 @@
     width: 3rem;
     height: 3rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.65);
     color: #0b57d0;
+    border: 1px solid rgba(255, 255, 255, 0.45);
     box-shadow: 0 16px 30px rgba(3, 13, 35, 0.22);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .novacast-cover-wave {
@@ -334,6 +476,66 @@
     background: repeating-linear-gradient(90deg, rgba(255,255,255,0.9) 0 3px, transparent 3px 9px);
     opacity: 0.75;
     box-shadow: 0 0 18px rgba(255,255,255,0.5);
+    transition: all 0.6s ease;
+}
+
+.novacast-vinyl-ring {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,0.06),
+        inset 0 0 0 2px rgba(255,255,255,0.06),
+        inset 0 0 0 34px rgba(0,0,0,0.04),
+        inset 0 0 0 36px rgba(255,255,255,0.02);
+}
+.novacast-featured-card.is-current .novacast-vinyl-ring {
+    opacity: 1;
+    animation: novacastRingRotate 8s linear infinite;
+}
+
+.novacast-featured-card.is-current .novacast-cover-wave {
+    left: 12%;
+    right: 12%;
+    top: 12%;
+    bottom: 12%;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.12), transparent 35%, rgba(255,255,255,0.04) 70%, transparent);
+    box-shadow: none;
+    opacity: 0.5;
+    animation: novacastRingRotate 6s linear infinite;
+}
+
+@keyframes novacastRingRotate {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes novacastWaveBounce {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+}
+
+.novacast-player-card.is-current .novacast-waveform span,
+.is-playing .novacast-waveform span {
+    animation: novacastWaveBounce 0.6s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i) * 0.035s);
+    transform-origin: bottom;
+}
+.novacast-player-card.is-current .novacast-waveform span.is-active,
+.is-playing .novacast-waveform span.is-active {
+    animation-duration: 0.45s;
+}
+
+.novacast-episode-row.is-current .novacast-row-wave span,
+.is-playing .novacast-row-wave span {
+    animation: novacastWaveBounce 0.55s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i) * 0.055s);
+    transform-origin: bottom;
 }
 
 .novacast-player-content {
@@ -359,10 +561,12 @@
     border-radius: 999px;
     font-weight: 850;
     padding: 0.34rem 0.62rem;
-    background: rgba(232, 241, 255, 0.86);
+    background: rgba(255, 255, 255, 0.40);
     color: #0b57d0;
-    font-size: 0.7rem;
+    font-size: 0.82rem;
     letter-spacing: 0.01em;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .novacast-player-date,
@@ -382,7 +586,7 @@
 
 .novacast-featured-label {
     color: #0e56c5;
-    font-size: 0.78rem;
+    font-size: 0.92rem;
     font-weight: 950;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -411,8 +615,10 @@
 }
 
 .novacast-player-description {
-    color: #42526b;
-    line-height: 1.55;
+    color: #30486d;
+    font-size: 1.06rem;
+    font-weight: 600;
+    line-height: 1.7;
     margin-bottom: 0.15rem;
 }
 
@@ -431,23 +637,29 @@
 }
 
 .novacast-player-control {
-    padding: 0.75rem;
+    padding: 1rem 1.1rem;
     border-radius: 24px;
-    background: rgba(255, 255, 255, 0.54);
-    border: 1px solid rgba(219, 234, 254, 0.76);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 10px 24px rgba(10, 38, 83, 0.06);
-    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.65),
+        0 10px 24px var(--novacast-glass-shadow);
+    backdrop-filter: blur(var(--novacast-glass-blur));
+    -webkit-backdrop-filter: blur(var(--novacast-glass-blur));
 }
 
 .novacast-theme-dark .novacast-player-control {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.04),
+        0 10px 24px rgba(0,0,0,0.25);
 }
 
 .novacast-custom-audio {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.9rem;
+    gap: 1.15rem;
     align-items: center;
     width: 100%;
 }
@@ -478,13 +690,27 @@
 }
 
 .novacast-audio-play {
-    width: 3.45rem;
-    height: 3.45rem;
+    width: 4.2rem;
+    height: 4.2rem;
     border-radius: 999px;
     color: #ffffff;
     background: linear-gradient(135deg, #0c4fc1 0%, #1d74f5 100%);
-    box-shadow: 0 14px 26px rgba(29, 116, 245, 0.26);
-    font-size: 1rem;
+    box-shadow: 0 14px 26px rgba(29, 116, 245, 0.30);
+    font-size: 1.25rem;
+    animation: novacastPlayBreath 3s ease-in-out infinite;
+}
+.novacast-audio-play.is-playing {
+    animation: none;
+    box-shadow: 0 14px 26px rgba(29, 116, 245, 0.30);
+}
+.novacast-audio-play:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 18px 36px rgba(29, 116, 245, 0.40);
+}
+
+@keyframes novacastPlayBreath {
+    0%, 100% { box-shadow: 0 14px 26px rgba(29, 116, 245, 0.30); }
+    50% { box-shadow: 0 14px 44px rgba(29, 116, 245, 0.50), 0 0 60px rgba(29, 116, 245, 0.15); }
 }
 
 .novacast-audio-timeline {
@@ -500,8 +726,8 @@
 
 .novacast-audio-time {
     color: #0b57d0;
-    font-size: 0.84rem;
-    font-weight: 850;
+    font-size: 0.98rem;
+    font-weight: 900;
 }
 
 .novacast-theme-dark .novacast-audio-time {
@@ -518,7 +744,7 @@
 .novacast-progress-track {
     display: block;
     width: 100%;
-    height: 0.48rem;
+    height: 0.58rem;
     border-radius: 999px;
     background: rgba(174, 196, 230, 0.42);
     overflow: hidden;
@@ -531,6 +757,25 @@
     border-radius: inherit;
     background: linear-gradient(90deg, #0c4fc1, #1d74f5);
     box-shadow: 0 0 18px rgba(29, 116, 245, 0.38);
+    position: relative;
+    transition: width 0.2s linear;
+}
+.novacast-progress-fill::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 12px rgba(29, 116, 245, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.novacast-progress-wrap:hover .novacast-progress-fill::after {
+    opacity: 1;
 }
 
 .novacast-waveform {
@@ -561,20 +806,24 @@
 
 .novacast-audio-mini,
 .novacast-audio-muted {
-    height: 2.2rem;
-    min-width: 2.2rem;
-    padding: 0 0.62rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    padding: 0 0.85rem;
     border-radius: 999px;
     color: #0b57d0;
-    background: rgba(232, 241, 255, 0.9);
-    font-size: 0.78rem;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-size: 0.88rem;
     font-weight: 900;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.60);
 }
 
 .novacast-audio-muted {
     color: #ffffff;
     background: linear-gradient(135deg, #0c4fc1 0%, #1d74f5 100%);
-    box-shadow: 0 12px 22px rgba(29, 116, 245, 0.2);
+    box-shadow: 0 12px 22px rgba(29, 116, 245, 0.28);
 }
 
 .novacast-custom-audio.is-muted .novacast-audio-muted {
@@ -611,10 +860,13 @@
     align-items: center;
     padding: 0.72rem;
     border-radius: 22px;
-    background: rgba(255, 255, 255, 0.66);
-    border: 1px solid rgba(255, 255, 255, 0.68);
-    box-shadow: 0 12px 26px rgba(15, 54, 108, 0.08);
-    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.50);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.70),
+        0 12px 26px var(--novacast-glass-shadow);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -658,17 +910,19 @@
     align-items: center;
     padding: 0.28rem 0.52rem;
     border-radius: 999px;
-    background: rgba(232, 241, 255, 0.86);
+    background: rgba(255, 255, 255, 0.40);
     color: #0b57d0;
-    font-size: 0.68rem;
+    font-size: 0.8rem;
     font-weight: 850;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .novacast-row-main h4 {
     margin: 0;
     color: #09245a;
-    font-size: 1rem;
-    line-height: 1.25;
+    font-size: 1.12rem;
+    line-height: 1.35;
     font-weight: 900;
     letter-spacing: -0.02em;
 }
@@ -689,7 +943,7 @@
 
 .novacast-row-duration {
     color: #4e6388;
-    font-size: 0.78rem;
+    font-size: 0.92rem;
     font-weight: 850;
     white-space: nowrap;
 }
@@ -713,7 +967,11 @@
 
     .novacast-featured-card .novacast-player-cover {
         height: auto;
-        aspect-ratio: 16 / 9;
+        aspect-ratio: 1 / 1;
+        max-height: 340px;
+        width: auto;
+        max-width: 340px;
+        margin: 0 auto;
     }
 }
 
@@ -756,5 +1014,893 @@
         width: 100%;
         height: auto;
         aspect-ratio: 16 / 9;
+    }
+}
+
+.novacast-audio-play .novacast-icon-pause,
+.novacast-audio-play.is-playing .novacast-icon-play {
+    display: none;
+}
+.novacast-audio-play.is-playing .novacast-icon-pause,
+.novacast-audio-play .novacast-icon-play {
+    display: inline-block;
+}
+
+.novacast-audio-muted .novacast-icon-muted,
+.novacast-audio-muted .novacast-icon-volume-high {
+    display: none;
+}
+.is-muted .novacast-audio-muted .novacast-icon-muted {
+    display: inline-block;
+}
+.novacast-audio-muted .novacast-icon-volume,
+.novacast-audio-muted .novacast-icon-volume-high {
+    display: inline-block;
+}
+
+.novacast-loading-indicator {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    padding: 0 0.5rem;
+}
+.is-loading .novacast-loading-indicator {
+    display: inline-flex;
+}
+.novacast-loading-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0b57d0;
+    animation: novacastDotPulse 1.2s ease-in-out infinite;
+}
+.novacast-loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.novacast-loading-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes novacastDotPulse {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1.2); }
+}
+
+.novacast-error {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    background: rgba(220, 38, 38, 0.12);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b91c1c;
+}
+.novacast-error[hidden] { display: none; }
+.novacast-error button {
+    border: 0;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    background: #b91c1c;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+.novacast-theme-dark .novacast-error {
+    background: rgba(252, 165, 165, 0.12);
+    border-color: rgba(252, 165, 165, 0.2);
+    color: #fca5a5;
+}
+.novacast-theme-dark .novacast-error button {
+    background: #ef4444;
+}
+
+.novacast-audio-speed {
+    height: 2.5rem;
+    min-width: 2.5rem;
+    padding: 0 0.6rem;
+    border-radius: 999px;
+    color: #0b57d0;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-size: 0.8rem;
+    font-weight: 900;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+.novacast-audio-speed:hover {
+    transform: translateY(-1px);
+}
+.novacast-theme-dark .novacast-audio-speed {
+    color: #dbeafe;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.novacast-volume-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+.novacast-volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(11, 87, 208, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: width 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+    overflow: hidden;
+}
+.novacast-volume-wrap:hover .novacast-volume-slider,
+.novacast-volume-slider:focus {
+    width: 64px;
+    opacity: 1;
+}
+.novacast-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0b57d0;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+.novacast-volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0b57d0;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+.novacast-theme-dark .novacast-volume-slider {
+    background: rgba(219, 234, 254, 0.25);
+}
+.novacast-theme-dark .novacast-volume-slider::-webkit-slider-thumb {
+    background: #93c5fd;
+}
+.novacast-theme-dark .novacast-volume-slider::-moz-range-thumb {
+    background: #93c5fd;
+}
+
+.novacast-progress-resume {
+    position: absolute;
+    top: -2rem;
+    left: 0;
+    padding: 0.3rem 0.65rem;
+    border-radius: 8px;
+    background: #0b57d0;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+}
+.novacast-progress-resume.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.novacast-theme-dark .novacast-progress-resume {
+    background: #1d4ed8;
+}
+
+.novacast-player-card.is-current,
+.novacast-episode-row.is-current {
+    box-shadow:
+        0 0 0 2px #0b57d0,
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 20px 48px var(--novacast-glass-shadow-lg);
+}
+.novacast-theme-dark .novacast-player-card.is-current,
+.novacast-theme-dark .novacast-episode-row.is-current {
+    box-shadow:
+        0 0 0 2px #60a5fa,
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 20px 48px rgba(0,0,0,0.35);
+}
+
+.novacast-miniplayer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 0 -8px 32px rgba(10, 38, 83, 0.12);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    padding: 0.65rem 1rem;
+}
+.novacast-miniplayer.is-visible {
+    transform: translateY(0);
+}
+.novacast-miniplayer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+.novacast-miniplayer-title {
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: #09245a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+.novacast-miniplayer-time {
+    font-size: 0.85rem;
+    font-weight: 850;
+    color: #0b57d0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+.novacast-theme-dark .novacast-miniplayer {
+    background: rgba(10, 22, 46, 0.85);
+    border-top-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+}
+.novacast-theme-dark .novacast-miniplayer-title {
+    color: #eaf2ff;
+}
+.novacast-theme-dark .novacast-miniplayer-time {
+    color: #93c5fd;
+}
+
+.is-loading .novacast-audio-play {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .novacast-volume-slider {
+        display: none;
+    }
+    .novacast-miniplayer {
+        padding: 0.5rem 0.75rem;
+    }
+    .novacast-miniplayer-title {
+        font-size: 0.8rem;
+    }
+}
+
+/* Surprise layer: cinematic glow, 3D tilt, hover energy */
+.novacast-section {
+    --novacast-tilt-x: 0deg;
+    --novacast-tilt-y: 0deg;
+    --novacast-glow-x: 50%;
+    --novacast-glow-y: 28%;
+    transform-style: preserve-3d;
+}
+
+.novacast-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at var(--novacast-glow-x) var(--novacast-glow-y), rgba(255,255,255,0.24), transparent 24%),
+        linear-gradient(135deg, rgba(255,255,255,0.09), transparent 35%, rgba(29,116,245,0.08) 70%, transparent);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.95;
+}
+
+.novacast-section[data-novacast-enhanced="1"] {
+    animation: novacastStageIn 880ms cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes novacastStageIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.novacast-section-hero {
+    overflow: hidden;
+}
+
+.novacast-section-hero::after {
+    content: "";
+    position: absolute;
+    inset: -35% -5%;
+    background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.42) 50%, transparent 61%);
+    transform: translateX(-120%) rotate(8deg);
+    animation: novacastHeroSweep 7s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+@keyframes novacastHeroSweep {
+    0%, 72%, 100% { transform: translateX(-120%) rotate(8deg); }
+    84% { transform: translateX(120%) rotate(8deg); }
+}
+
+.novacast-brand-icon {
+    animation: novacastFloat 4s ease-in-out infinite;
+}
+
+@keyframes novacastFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.novacast-theme-toggle:hover {
+    transform: translateY(-1px) scale(1.015);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.78),
+        0 18px 36px rgba(29,116,245,0.16);
+}
+
+.novacast-featured-card {
+    position: relative;
+    transform:
+        perspective(1400px)
+        rotateX(var(--novacast-tilt-x))
+        rotateY(var(--novacast-tilt-y))
+        translateZ(0);
+    transition: transform 240ms ease, box-shadow 240ms ease;
+}
+
+.novacast-featured-card::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--novacast-glow-x) var(--novacast-glow-y), rgba(255,255,255,0.34), transparent 30%);
+    opacity: 0;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+}
+
+.novacast-featured-card:hover::before,
+.novacast-featured-card.is-current::before {
+    opacity: 1;
+}
+
+.novacast-featured-card .novacast-player-content > *,
+.novacast-featured-card .novacast-player-cover-wrap {
+    transform: translateZ(18px);
+}
+
+.novacast-featured-card.is-current {
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.82),
+        0 34px 84px rgba(29,116,245,0.22),
+        0 0 0 1px rgba(255,255,255,0.38);
+}
+
+.novacast-featured-card.is-current .novacast-player-control {
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.76),
+        0 20px 42px rgba(29,116,245,0.20),
+        0 0 0 1px rgba(29,116,245,0.12);
+}
+
+.novacast-episode-row {
+    position: relative;
+    overflow: hidden;
+}
+
+.novacast-episode-row::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(29,116,245,0.08), transparent 35%, transparent 66%, rgba(255,255,255,0.14));
+    opacity: 0;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+}
+
+.novacast-episode-row:hover::after,
+.novacast-episode-row.is-current::after {
+    opacity: 1;
+}
+
+.novacast-player-card .novacast-player-cover,
+.novacast-episode-row .novacast-row-cover img {
+    transition: transform 420ms ease, filter 420ms ease;
+}
+
+.novacast-player-card:hover .novacast-player-cover,
+.novacast-episode-row:hover .novacast-row-cover img {
+    transform: scale(1.04);
+}
+
+.novacast-cover-play,
+.novacast-row-cover span {
+    transition: transform 220ms ease, background 220ms ease;
+}
+
+.novacast-player-card:hover .novacast-cover-play,
+.novacast-episode-row:hover .novacast-row-cover span {
+    transform: scale(1.08);
+    background: rgba(255,255,255,0.84);
+}
+
+.novacast-progress-track::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform: translateX(-100%);
+    animation: novacastTrackSweep 2.8s linear infinite;
+    opacity: 0.45;
+}
+
+@keyframes novacastTrackSweep {
+    to { transform: translateX(100%); }
+}
+
+.novacast-audio-play {
+    animation: novacastPlayBreath 3s ease-in-out infinite;
+}
+
+.novacast-audio-play.is-playing {
+    animation: none;
+}
+
+.novacast-audio-play:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 18px 38px rgba(29,116,245,0.42);
+}
+
+@keyframes novacastPlayBreath {
+    0%, 100% { box-shadow: 0 14px 26px rgba(29,116,245,0.30); }
+    50% { box-shadow: 0 16px 46px rgba(29,116,245,0.48), 0 0 60px rgba(29,116,245,0.14); }
+}
+
+.novacast-loading-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.22rem;
+    opacity: 0;
+    transform: translateY(3px);
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.is-loading .novacast-loading-indicator {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.novacast-loading-dot {
+    width: 0.36rem;
+    height: 0.36rem;
+    border-radius: 999px;
+    background: #1d74f5;
+    animation: novacastLoadingDot 1s ease-in-out infinite;
+}
+
+.novacast-loading-dot:nth-child(2) { animation-delay: 0.15s; }
+.novacast-loading-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes novacastLoadingDot {
+    0%, 100% { transform: translateY(0); opacity: 0.35; }
+    50% { transform: translateY(-4px); opacity: 1; }
+}
+
+.novacast-miniplayer {
+    left: 50%;
+    right: auto;
+    bottom: 1rem;
+    width: min(92vw, 480px);
+    transform: translateX(-50%) translateY(140%);
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(9, 26, 64, 0.88);
+    color: #fff;
+    box-shadow: 0 24px 60px rgba(5,16,43,0.38);
+}
+
+.novacast-miniplayer.is-visible {
+    transform: translateX(-50%) translateY(0);
+}
+
+.novacast-miniplayer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(96,165,250,0.18), transparent 35%, rgba(255,255,255,0.05));
+    pointer-events: none;
+}
+
+.novacast-miniplayer-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.novacast-miniplayer-title {
+    color: #fff;
+}
+
+.novacast-miniplayer-time {
+    color: #93c5fd;
+}
+
+.novacast-player-card.is-current .novacast-waveform span,
+.is-playing .novacast-waveform span,
+.novacast-episode-row.is-current .novacast-row-wave span,
+.is-playing .novacast-row-wave span {
+    animation: novacastWavePulse 0.55s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i) * 0.04s);
+    transform-origin: bottom;
+}
+
+@keyframes novacastWavePulse {
+    0%, 100% { transform: scaleY(0.52); }
+    50% { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .novacast-section[data-novacast-enhanced="1"],
+    .novacast-section-hero::after,
+    .novacast-brand-icon,
+    .novacast-audio-play,
+    .novacast-progress-track::after,
+    .novacast-loading-dot,
+    .novacast-player-card.is-current .novacast-waveform span,
+    .is-playing .novacast-waveform span,
+    .novacast-episode-row.is-current .novacast-row-wave span,
+    .is-playing .novacast-row-wave span {
+        animation: none !important;
+    }
+
+    .novacast-featured-card,
+    .novacast-player-card:hover .novacast-player-cover,
+    .novacast-episode-row:hover .novacast-row-cover img,
+    .novacast-theme-toggle:hover,
+    .novacast-audio-play:hover {
+        transform: none !important;
+    }
+}
+
+/* Apple Music direction overrides */
+.novacast-style-apple.novacast-section,
+.novacast-style-apple.novacast-section.novacast-theme-light,
+.novacast-style-apple.novacast-section.novacast-theme-dark {
+    color: #f5f7ff;
+    background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.20), transparent 30%),
+        radial-gradient(circle at 82% 18%, rgba(34, 211, 238, 0.16), transparent 24%),
+        linear-gradient(160deg, rgba(8, 12, 22, 0.97), rgba(14, 20, 36, 0.95) 52%, rgba(7, 14, 28, 0.99));
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 30px 90px rgba(3, 5, 12, 0.42);
+}
+
+.novacast-style-apple.novacast-section::before {
+    background:
+        radial-gradient(circle at var(--novacast-glow-x) var(--novacast-glow-y), rgba(255,255,255,0.10), transparent 20%),
+        linear-gradient(120deg, rgba(255,255,255,0.04), transparent 34%, rgba(59,130,246,0.10) 70%, transparent);
+}
+
+.novacast-style-apple .novacast-section-hero {
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 18px 44px rgba(0,0,0,0.24);
+}
+
+.novacast-style-apple .novacast-brand-icon {
+    background: linear-gradient(135deg, rgba(37,99,235,0.24), rgba(6,182,212,0.22));
+    border-color: rgba(255,255,255,0.08);
+    color: #fff;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 16px 30px rgba(37,99,235,0.20);
+}
+
+.novacast-style-apple .novacast-section-kicker {
+    background: rgba(255,255,255,0.08);
+    color: #8fd3ff;
+    letter-spacing: 0.12em;
+}
+
+.novacast-style-apple .novacast-section-title,
+.novacast-style-apple .novacast-player-title,
+.novacast-style-apple .novacast-row-main h4,
+.novacast-style-apple .novacast-list-header h3 {
+    color: #ffffff;
+}
+
+.novacast-style-apple .novacast-section-title {
+    font-size: clamp(2.2rem, 4vw, 3.3rem);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+}
+
+.novacast-style-apple .novacast-section-description,
+.novacast-style-apple .novacast-player-description,
+.novacast-style-apple .novacast-row-duration {
+    color: rgba(229, 232, 245, 0.78);
+}
+
+.novacast-style-apple .novacast-theme-toggle {
+    min-width: auto;
+    padding: 0.2rem 0.7rem;
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.08);
+    color: #fff;
+}
+
+.novacast-style-apple .novacast-theme-label {
+    display: none;
+}
+
+.novacast-style-apple .novacast-featured-card,
+.novacast-style-apple .novacast-episode-row,
+.novacast-style-apple .novacast-player-control {
+    background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 22px 48px rgba(0,0,0,0.28);
+}
+
+.novacast-style-apple .novacast-featured-card {
+    grid-template-columns: minmax(150px, 210px) 1fr;
+    gap: 1.4rem;
+    padding: 1.4rem;
+    border-radius: 30px;
+}
+
+.novacast-style-apple .novacast-featured-card .novacast-player-cover {
+    aspect-ratio: 1 / 1;
+    max-width: 190px;
+    margin: 0 auto;
+    border-radius: 22px;
+    filter: saturate(1.08) contrast(1.02);
+    box-shadow: 0 22px 48px rgba(0,0,0,0.34);
+}
+
+.novacast-style-apple .novacast-cover-gradient {
+    background: linear-gradient(180deg, transparent 20%, rgba(8, 10, 18, 0.28), rgba(8, 10, 18, 0.72));
+}
+
+.novacast-style-apple .novacast-cover-play {
+    width: 3.4rem;
+    height: 3.4rem;
+    background: rgba(255,255,255,0.9);
+    color: #111827;
+}
+
+.novacast-style-apple .novacast-vinyl-ring,
+.novacast-style-apple .novacast-featured-card.is-current .novacast-cover-wave {
+    display: none;
+}
+
+.novacast-style-apple .novacast-player-meta,
+.novacast-style-apple .novacast-row-meta {
+    gap: 0.5rem;
+}
+
+.novacast-style-apple .novacast-episode-number,
+.novacast-style-apple .novacast-player-badge,
+.novacast-style-apple .novacast-player-date,
+.novacast-style-apple .novacast-player-duration,
+.novacast-style-apple .novacast-row-meta span {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.88);
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: none;
+}
+
+.novacast-style-apple .novacast-featured-label {
+    color: #8fd3ff;
+}
+
+.novacast-style-apple .novacast-player-title {
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.novacast-style-apple .novacast-player-description {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    max-width: 56ch;
+}
+
+.novacast-style-apple .novacast-player-control {
+    border-radius: 26px;
+    padding: 1.15rem 1.2rem;
+}
+
+.novacast-style-apple .novacast-audio-play {
+    background: linear-gradient(135deg, #2563eb, #0ea5e9 58%, #22d3ee);
+    color: #fff;
+    box-shadow: 0 18px 42px rgba(37,99,235,0.34);
+}
+
+.novacast-style-apple .novacast-audio-times,
+.novacast-style-apple .novacast-audio-time {
+    color: rgba(255,255,255,0.92);
+}
+
+.novacast-style-apple .novacast-progress-track {
+    background: rgba(255,255,255,0.14);
+}
+
+.novacast-style-apple .novacast-progress-fill {
+    background: linear-gradient(90deg, #2563eb, #0ea5e9 38%, #22d3ee 100%);
+    box-shadow: 0 0 24px rgba(14,165,233,0.24);
+}
+
+.novacast-style-apple .novacast-waveform span,
+.novacast-style-apple .novacast-row-wave span {
+    background: rgba(255,255,255,0.22);
+}
+
+.novacast-style-apple .novacast-player-card.is-current .novacast-waveform span,
+.novacast-style-apple .is-playing .novacast-waveform span,
+.novacast-style-apple .novacast-episode-row.is-current .novacast-row-wave span,
+.novacast-style-apple .is-playing .novacast-row-wave span {
+    background: linear-gradient(180deg, #60a5fa, #06b6d4);
+}
+
+.novacast-style-apple .novacast-audio-mini,
+.novacast-style-apple .novacast-audio-muted,
+.novacast-style-apple .novacast-audio-speed {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #fff;
+    box-shadow: none;
+}
+
+.novacast-style-apple .novacast-audio-muted {
+    background: rgba(255,255,255,0.12);
+}
+
+.novacast-style-apple .novacast-volume-slider {
+    background: rgba(255,255,255,0.14);
+}
+
+.novacast-style-apple .novacast-volume-slider::-webkit-slider-thumb {
+    background: #fff;
+}
+
+.novacast-style-apple .novacast-volume-slider::-moz-range-thumb {
+    background: #fff;
+}
+
+.novacast-style-apple .novacast-list-header {
+    margin-top: 1.7rem;
+}
+
+.novacast-style-apple .novacast-list-header h3::before {
+    background: linear-gradient(180deg, #60a5fa, #06b6d4);
+}
+
+.novacast-style-apple .novacast-view-all {
+    color: #93c5fd;
+}
+
+.novacast-style-apple .novacast-episode-row {
+    grid-template-columns: 112px minmax(0, 1fr) auto;
+    border-radius: 24px;
+    padding: 0.9rem 1rem;
+}
+
+.novacast-style-apple .novacast-row-player {
+    margin-top: 0.7rem;
+}
+
+.novacast-style-apple .novacast-custom-audio-compact {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+}
+
+.novacast-style-apple .novacast-custom-audio-compact .novacast-audio-primary {
+    gap: 0.75rem;
+}
+
+.novacast-style-apple .novacast-custom-audio-compact .novacast-audio-play {
+    width: 2.8rem;
+    height: 2.8rem;
+    font-size: 0.95rem;
+    box-shadow: 0 12px 24px rgba(37,99,235,0.24);
+}
+
+.novacast-style-apple .novacast-custom-audio-compact .novacast-waveform {
+    height: 1.1rem;
+    gap: 0.12rem;
+}
+
+.novacast-style-apple .novacast-custom-audio-compact .novacast-waveform span {
+    width: 0.12rem;
+    min-height: 0.22rem;
+}
+
+.novacast-style-apple .novacast-custom-audio-compact .novacast-audio-actions {
+    gap: 0.36rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.novacast-style-apple .novacast-custom-audio-compact .novacast-audio-mini,
+.novacast-style-apple .novacast-custom-audio-compact .novacast-audio-muted,
+.novacast-style-apple .novacast-custom-audio-compact .novacast-audio-speed {
+    height: 2rem;
+    min-width: 2rem;
+    font-size: 0.78rem;
+    padding: 0 0.65rem;
+}
+
+.novacast-style-apple .novacast-custom-audio-compact .novacast-volume-slider {
+    max-width: 86px;
+}
+
+.novacast-style-apple .novacast-inline-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.35rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #dbeafe;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.84rem;
+}
+
+.novacast-style-apple .novacast-row-cover img {
+    width: 112px;
+    height: 72px;
+    border-radius: 16px;
+}
+
+.novacast-style-apple .novacast-row-cover span {
+    background: linear-gradient(180deg, transparent, rgba(8,10,18,0.55));
+}
+
+.novacast-style-apple .novacast-player-card.is-current,
+.novacast-style-apple .novacast-episode-row.is-current {
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.14),
+        0 26px 58px rgba(37,99,235,0.18);
+}
+
+.novacast-style-apple .novacast-miniplayer {
+    background: rgba(16, 18, 28, 0.9);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.42);
+}
+
+.novacast-style-apple .novacast-miniplayer::before {
+    background: linear-gradient(135deg, rgba(37,99,235,0.18), transparent 35%, rgba(6,182,212,0.12));
+}
+
+.novacast-style-apple .novacast-miniplayer-time {
+    color: #93c5fd;
+}
+
+@media (max-width: 980px) {
+    .novacast-style-apple .novacast-featured-card {
+        grid-template-columns: 1fr;
     }
 }
